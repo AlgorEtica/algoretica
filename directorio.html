@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Directorio IA & Derechos Humanos · AlgorÉtica</title>
+<meta name="description" content="Primer directorio en español con perspectiva latinoamericana sobre inteligencia artificial y derechos humanos." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/algoretica/assets/shared.css" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #ffffff; --surface: #f8fafc; --border: #e2e8f0;
+    --text: #0f172a; --muted: #475569; --dim: #64748b; --faint: #94a3b8;
+    --cat-org-accent: #16a34a; --cat-norm-accent: #2563eb;
+    --cat-inf-accent: #7c3aed; --cat-caso-accent: #dc2626; --cat-herr-accent: #d97706;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Montserrat', system-ui, sans-serif; min-height: 100vh; line-height: 1.5; }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--surface); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  /* HEADER */
+  .dir-header {
+    border-bottom: 1px solid var(--border);
+    padding: 48px 6% 36px;
+    background: linear-gradient(180deg, #f0f7ff 0%, var(--bg) 100%);
+  }
+  .dir-header-inner { max-width: 1100px; margin: 0 auto; }
+  .site-label { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+  .dot-live { width: 8px; height: 8px; border-radius: 50%; background: var(--cat-org-accent); box-shadow: 0 0 8px #16a34a88; flex-shrink: 0; }
+  .site-label span { font-size: 11px; letter-spacing: .15em; color: var(--cat-org-accent); font-weight: 700; text-transform: uppercase; }
+  .dir-header h1 {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: clamp(24px, 4vw, 40px); font-weight: 700; line-height: 1.15; margin-bottom: 12px;
+    background: linear-gradient(135deg, #0f172a 30%, #475569);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .dir-header p { color: var(--dim); font-size: 14px; max-width: 580px; line-height: 1.65; }
+  .stats { display: flex; gap: 28px; margin-top: 24px; flex-wrap: wrap; }
+  .stat-item { text-align: center; }
+  .stat-n { font-family: 'DM Serif Display', serif; font-size: 24px; font-weight: 800; color: var(--text); display: block; }
+  .stat-label { font-size: 11px; color: var(--faint); text-transform: uppercase; letter-spacing: .1em; }
+
+  /* FILTERS BAR */
+  .filters-bar { border-bottom: 1px solid var(--border); padding: 14px 6%; background: var(--bg); position: sticky; top: 65px; z-index: 20; }
+  .filters-inner { max-width: 1100px; margin: 0 auto; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .search-input {
+    flex: 1 1 220px; background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; padding: 9px 14px; color: var(--text); font-size: 13px;
+    font-family: inherit; outline: none; transition: border-color .2s;
+  }
+  .search-input:focus { border-color: var(--cat-norm-accent); }
+  .search-input::placeholder { color: var(--faint); }
+  select.filter-select {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    padding: 9px 12px; color: var(--muted); font-size: 13px; font-family: inherit;
+    outline: none; cursor: pointer; transition: border-color .2s;
+  }
+  select.filter-select:focus { border-color: var(--cat-norm-accent); }
+  .result-count { font-size: 12px; color: var(--faint); margin-left: auto; white-space: nowrap; }
+
+  /* MAIN */
+  .dir-main { max-width: 1100px; margin: 0 auto; padding: 28px 6% 64px; }
+
+  /* TABS */
+  .tabs { display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; }
+  .tab-btn {
+    background: transparent; border: 1px solid var(--border); border-radius: 8px;
+    padding: 7px 14px; color: var(--faint); font-size: 12px; font-weight: 500;
+    font-family: inherit; cursor: pointer; transition: all .15s;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .tab-btn:hover { color: var(--muted); border-color: var(--faint); }
+  .tab-btn.active { font-weight: 700; }
+  .tab-count { background: var(--border); border-radius: 99px; padding: 0 6px; font-size: 10px; font-weight: 700; }
+
+  /* GRID */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 16px; }
+
+  /* CARD */
+  .card {
+    background: #ffffff; border: 1px solid transparent; border-radius: 12px;
+    padding: 20px 22px; display: flex; flex-direction: column; gap: 10px;
+    transition: border-color .2s, transform .15s; position: relative; overflow: hidden;
+    text-decoration: none; color: inherit;
+  }
+  .card:hover { transform: translateY(-2px); }
+  .card-top-line { position: absolute; top: 0; left: 0; right: 0; height: 2px; }
+  .card-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 4px; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 99px; font-size: 11px; font-weight: 600; letter-spacing: .03em; border: 1px solid transparent; }
+  .card-title { font-family: 'DM Serif Display', Georgia, serif; font-size: 15px; font-weight: 700; color: #0f172a; line-height: 1.3; }
+  .card-meta { display: flex; gap: 6px; align-items: center; font-size: 12px; color: var(--muted); flex-wrap: wrap; }
+  .card-meta .sep { color: var(--border); font-size: 10px; }
+  .card-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .card-temas { display: flex; flex-wrap: wrap; gap: 5px; }
+  .card-link { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; text-decoration: none; margin-top: 2px; opacity: .85; transition: opacity .15s; }
+  .card-link:hover { opacity: 1; }
+
+  /* EMPTY */
+  .empty { text-align: center; color: var(--faint); padding: 60px 0; font-size: 14px; }
+
+  /* FOOTER NOTE */
+  .footer-note { margin-top: 48px; padding: 20px 24px; background: #f0f7ff; border: 1px solid #bfdbfe; border-radius: 12px; display: flex; align-items: flex-start; gap: 12px; }
+  .footer-note-icon { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+  .footer-note p { font-size: 13px; color: var(--dim); line-height: 1.6; }
+  .footer-note strong { color: var(--text); font-weight: 600; display: block; margin-bottom: 4px; }
+  .footer-note a { color: var(--cat-norm-accent); text-decoration: none; }
+  .footer-note a:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .dir-header, .filters-bar, .dir-main { padding-left: 5%; padding-right: 5%; }
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<script src="/algoretica/assets/shared.js"></script>
+
+<header class="dir-header">
+  <div class="dir-header-inner">
+    <div class="site-label"><div class="dot-live"></div><span>AlgorÉtica · Directorio</span></div>
+    <h1>Directorio IA &amp; Derechos Humanos</h1>
+    <p>Primer directorio en español con perspectiva latinoamericana. Organizaciones, marcos normativos, informes, casos y herramientas sobre inteligencia artificial y derechos humanos.</p>
+    <div class="stats">
+      <div class="stat-item"><span class="stat-n" id="stat-total">32</span><span class="stat-label">Entradas</span></div>
+      <div class="stat-item"><span class="stat-n">5</span><span class="stat-label">Categorías</span></div>
+      <div class="stat-item"><span class="stat-n" id="stat-paises">—</span><span class="stat-label">Países</span></div>
+      <div class="stat-item"><span class="stat-n" id="stat-temas">—</span><span class="stat-label">Temas</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="filters-bar">
+  <div class="filters-inner">
+    <input class="search-input" type="text" id="search" placeholder="Buscar por nombre, descripción o tema…" />
+    <select class="filter-select" id="sel-tema"><option value="">Todos los temas</option></select>
+    <select class="filter-select" id="sel-pais"><option value="">Todos los países</option></select>
+    <span class="result-count" id="result-count"></span>
+  </div>
+</div>
+
+<main class="dir-main">
+  <div class="tabs" id="tabs"></div>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty" style="display:none">No se encontraron resultados con esos filtros.</div>
+  <div class="footer-note">
+    <div class="footer-note-icon">📋</div>
+    <div>
+      <p><strong>Directorio en construcción — versión 0.1</strong>
+      Este directorio es una primera versión curada por el equipo de AlgorÉtica. ¿Conocés un recurso, organización o caso que debería estar aquí? <a href="mailto:algoretica@gmail.com">Escribinos para sumarlo.</a></p>
+    </div>
+  </div>
+</main>
+
+<script>
+const ENTRIES = [
+  { id:1, categoria:"Organizaciones", subcategoria:"Sociedad civil regional", nombre:"Derechos Digitales", pais:"Chile / Regional", descripcion:"ONG latinoamericana dedicada al desarrollo, la defensa y la promoción de los derechos humanos en el entorno digital, con fuerte énfasis en IA, privacidad y libertad de expresión.", url:"https://www.derechosdigitales.org", temas:["Privacidad","Sesgo algorítmico","Vigilancia","Regulación"], tipo:"OSC", idioma:"ES", anio:null },
+  { id:2, categoria:"Organizaciones", subcategoria:"Sociedad civil regional", nombre:"Fundación Karisma", pais:"Colombia", descripcion:"Organización colombiana que trabaja derechos humanos en entornos digitales. Tiene investigaciones específicas sobre políticas de IA, propiedad intelectual y datos en América Latina.", url:"https://web.karisma.org.co", temas:["Regulación","Datos","Derechos de autor","Privacidad"], tipo:"OSC", idioma:"ES", anio:null },
+  { id:3, categoria:"Organizaciones", subcategoria:"Sociedad civil internacional", nombre:"Access Now", pais:"Internacional", descripcion:"Organización internacional que defiende y amplía los derechos digitales de usuarios en riesgo. Tiene programa específico para América Latina con reportes de regulación de IA.", url:"https://www.accessnow.org/es", temas:["Vigilancia","Regulación","Privacidad","Libertad de expresión"], tipo:"OSC", idioma:"ES / EN", anio:null },
+  { id:4, categoria:"Organizaciones", subcategoria:"Sociedad civil regional", nombre:"R3D – Red en Defensa de los Derechos Digitales", pais:"México", descripcion:"Organización mexicana que promueve y defiende derechos humanos en entornos digitales, con trabajo en vigilancia estatal, IA y reforma legal.", url:"https://r3d.mx", temas:["Vigilancia estatal","Privacidad","Regulación","Libertad de expresión"], tipo:"OSC", idioma:"ES", anio:null },
+  { id:5, categoria:"Organizaciones", subcategoria:"Red temática", nombre:"Red IA Feminista LAC", pais:"Regional ALC", descripcion:"Red que cataliza investigación e innovación en IA basada en derechos humanos y centrada en comunidades de América Latina y el Caribe, con perspectiva feminista e interseccional.", url:"https://iafeminista.lat", temas:["Género","Sesgo algorítmico","Interseccionalidad","Investigación"], tipo:"Red", idioma:"ES", anio:null },
+  { id:6, categoria:"Organizaciones", subcategoria:"Organismo internacional", nombre:"OHCHR – B-Tech Project", pais:"Internacional / ONU", descripcion:"Proyecto del Alto Comisionado de la ONU para DDHH que desarrolla orientaciones sobre empresas tecnológicas y derechos humanos, incluyendo IA generativa y debida diligencia.", url:"https://www.ohchr.org/en/businesses-and-human-rights/b-tech-project", temas:["Empresas","Debido proceso","Estándares","IA generativa"], tipo:"Organismo internacional", idioma:"ES / EN", anio:null },
+  { id:7, categoria:"Organizaciones", subcategoria:"Organismo internacional", nombre:"UNESCO – Ética de la IA", pais:"Internacional", descripcion:"Programa de UNESCO que elaboró la primera Recomendación global sobre ética de la IA (2021), adoptada por 193 países. Produce recursos, casos y herramientas de evaluación.", url:"https://www.unesco.org/es/artificial-intelligence/recommendation-ethics", temas:["Ética","Estándares globales","Sesgo de género","Regulación"], tipo:"Organismo internacional", idioma:"ES / EN / FR", anio:null },
+  { id:8, categoria:"Organizaciones", subcategoria:"Think tank", nombre:"CETyS – Centro de Tecnología y Sociedad (UDESA)", pais:"Argentina", descripcion:"Centro académico de la Universidad de San Andrés que investiga la intersección entre tecnología, sociedad y derecho en América Latina, con foco en gobernanza de IA.", url:"https://cetys.lat", temas:["Gobernanza","Justicia","Regulación","Investigación académica"], tipo:"Academia", idioma:"ES", anio:null },
+  { id:9, categoria:"Organizaciones", subcategoria:"Sociedad civil internacional", nombre:"Electronic Frontier Foundation (EFF)", pais:"EEUU / Internacional", descripcion:"Organización pionera en defensa de libertades digitales. Publicó estándares de DDHH para uso estatal de IA en América Latina y produce recursos técnico-jurídicos de referencia.", url:"https://www.eff.org", temas:["Vigilancia","Libertad de expresión","Privacidad","Estándares"], tipo:"OSC", idioma:"EN / ES parcial", anio:null },
+  { id:10, categoria:"Marcos normativos", subcategoria:"Soft law internacional", nombre:"Recomendación UNESCO sobre Ética de la IA", pais:"Internacional", descripcion:"Primer instrumento normativo global sobre ética de la IA, adoptado en 2021 por 193 países miembros. Establece valores y principios rectores para el ciclo de vida de los sistemas de IA.", url:"https://unesdoc.unesco.org/ark:/48223/pf0000381137_spa", temas:["Ética","Estándares globales","Género","No discriminación"], tipo:"Soft law", idioma:"ES", anio:2021 },
+  { id:11, categoria:"Marcos normativos", subcategoria:"Legislación nacional", nombre:"Proyectos de ley de IA en Argentina", pais:"Argentina", descripcion:"Múltiples proyectos en trámite: S-0071/2025 (regulación general), 2505-D-2023 (clasificación por riesgo), 3900-D-2024 (Observatorio Federal de IA). Ninguno sancionado aún.", url:"https://allende.com/tecnologia/inteligencia-artificial/ia-01-05-2024/", temas:["Regulación","Clasificación por riesgo","Gobernanza"], tipo:"Legislación en trámite", idioma:"ES", anio:2025 },
+  { id:12, categoria:"Marcos normativos", subcategoria:"Legislación nacional", nombre:"Proyecto de Ley de IA de Brasil (PL 2338/2023)", pais:"Brasil", descripcion:"Proyecto más avanzado de la región con enfoque basado en riesgos similar al Reglamento europeo. Exige evaluaciones de impacto para sistemas de alto riesgo.", url:"https://www.orcg.info/articulos/avances-en-la-regulacin-de-la-inteligencia-artificial-en-amrica-latina", temas:["Regulación","Evaluación de impacto","Alto riesgo"], tipo:"Legislación en trámite", idioma:"PT", anio:2023 },
+  { id:13, categoria:"Marcos normativos", subcategoria:"Legislación nacional", nombre:"Ley de Protección de Datos de Brasil (LGPD)", pais:"Brasil", descripcion:"Lei Nº 13.709/2018, primera ley integral de protección de datos de América Latina, en vigor desde 2020. Marco de referencia para tratamiento de datos en sistemas de IA.", url:"https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/L13709compilado.htm", temas:["Protección de datos","Privacidad","Regulación"], tipo:"Ley vigente", idioma:"PT", anio:2018 },
+  { id:14, categoria:"Marcos normativos", subcategoria:"Legislación nacional", nombre:"Proyecto de Ley de IA de Chile (Nº 16821-19)", pais:"Chile", descripcion:"Proyecto de 2024 que establece criterios de riesgo para prohibir sistemas de IA inaceptables y regular sistemas de alto riesgo. Influenciado por el Reglamento de IA de la UE.", url:"https://www.orcg.info/articulos/avances-en-la-regulacin-de-la-inteligencia-artificial-en-amrica-latina", temas:["Regulación","Clasificación por riesgo","Derechos fundamentales"], tipo:"Legislación en trámite", idioma:"ES", anio:2024 },
+  { id:15, categoria:"Marcos normativos", subcategoria:"Soft law internacional", nombre:"Convención del Consejo de Europa sobre IA y DDHH", pais:"Internacional", descripcion:"Primer tratado internacional vinculante sobre IA, adoptado en 2024. Establece obligaciones para proteger derechos humanos, democracia y Estado de derecho frente a sistemas de IA.", url:"https://www.coe.int/en/web/human-rights-intergovernmental-cooperation/intelligence-artificielle", temas:["Tratado","Derechos humanos","Democracia","Estado de derecho"], tipo:"Tratado internacional", idioma:"EN / FR", anio:2024 },
+  { id:16, categoria:"Marcos normativos", subcategoria:"Soft law internacional", nombre:"Resolución ONU A/RES/78/265 sobre IA", pais:"Internacional / ONU", descripcion:"Resolución adoptada por consenso de 193 Estados miembros en 2024. Enfatiza que los derechos humanos deben respetarse en todo el ciclo de vida de los sistemas de IA.", url:"https://www.un.org/global-digital-compact", temas:["Estándares globales","Ciclo de vida de IA","Derechos humanos"], tipo:"Resolución ONU", idioma:"ES / EN", anio:2024 },
+  { id:17, categoria:"Marcos normativos", subcategoria:"Herramienta de evaluación", nombre:"HUDERIA – Metodología de evaluación de impacto en DDHH", pais:"Internacional", descripcion:"Metodología adoptada por el Consejo de Europa en noviembre 2024 para evaluar el impacto de sistemas de IA en derechos humanos. Será complementada con herramientas prácticas en 2025.", url:"https://www.coe.int/en/web/portal/-/huderia-new-tool-to-assess-the-impact-of-ai-systems-on-human-rights", temas:["Evaluación de impacto","Herramienta práctica","DDHH"], tipo:"Herramienta", idioma:"EN", anio:2024 },
+  { id:18, categoria:"Informes y publicaciones", subcategoria:"Informe regional", nombre:"Radiografía de regulación de IA en LAC – Access Now", pais:"Regional ALC", descripcion:"Reporte regional de políticas de regulación de IA en América Latina y el Caribe. Analiza el panorama normativo y los estándares de derechos humanos aplicables.", url:"https://www.accessnow.org/wp-content/uploads/2024/02/LAC-Reporte-regional-de-politicas-de-regulacion-a-la-IA.pdf", temas:["Regulación","Panorama regional","Estándares"], tipo:"Informe", idioma:"ES", anio:2024 },
+  { id:19, categoria:"Informes y publicaciones", subcategoria:"Informe regional", nombre:"Políticas de IA y Derechos de Autor en LAC – Karisma", pais:"Regional ALC", descripcion:"Mapeo de 19 países latinoamericanos sobre estrategias nacionales de IA y su relación con propiedad intelectual, minería de datos y derechos de autor.", url:"https://web.karisma.org.co/informe-sobre-politicas-de-inteligencia-artificial-y-derechos-de-autor-en-america-latina/", temas:["Propiedad intelectual","Estrategias nacionales","Regulación"], tipo:"Informe", idioma:"ES", anio:2023 },
+  { id:20, categoria:"Informes y publicaciones", subcategoria:"Índice regional", nombre:"Índice Latinoamericano de IA (ILIA 2024) – CENIA/CEPAL", pais:"Regional ALC", descripcion:"Segunda edición del índice que evalúa 19 países en factores habilitantes, I+D y gobernanza de IA. Chile, Brasil y Uruguay lideran; Argentina, Colombia y México son adoptantes intermedios.", url:"https://www.eeas.europa.eu/node/445338_en", temas:["Gobernanza","Capacidades","Benchmark regional"], tipo:"Índice / Informe", idioma:"ES", anio:2024 },
+  { id:21, categoria:"Informes y publicaciones", subcategoria:"Informe académico", nombre:"Regulación de IA en el proceso judicial en LAC", pais:"Regional ALC", descripcion:"Análisis comparativo de Argentina, Brasil, Chile, Colombia y México sobre el uso de IA en sistemas judiciales. Identifica sesgos algorítmicos y vacíos en marcos legales actuales.", url:"https://erevistas.uacj.mx/ojs/index.php/reij/article/view/6744", temas:["Justicia","Sesgo algorítmico","Transparencia","Derecho comparado"], tipo:"Artículo académico", idioma:"ES", anio:2025 },
+  { id:22, categoria:"Informes y publicaciones", subcategoria:"Informe académico", nombre:"Sesgos y discriminación algorítmica en IA – Revisión documental", pais:"Internacional", descripcion:"Revisión documental exhaustiva sobre sesgos, discriminaciones y desigualdades en la implementación de IA. Analiza casos internacionales desde perspectiva de ciencias sociales.", url:"https://revistasacademicas.iberoleon.mx/index.php/entretextos/article/view/664", temas:["Sesgo algorítmico","Discriminación","Desigualdad"], tipo:"Artículo académico", idioma:"ES", anio:2023 },
+  { id:23, categoria:"Informes y publicaciones", subcategoria:"Declaración conjunta", nombre:"Declaración conjunta FOC sobre IA y DDHH 2025", pais:"Internacional", descripcion:"Declaración de la Freedom Online Coalition (que incluye a Argentina, Chile, Colombia, México) sobre estándares de DDHH para sistemas de IA, con énfasis en grupos vulnerables.", url:"https://freedomonlinecoalition.com/joint-statement-on-ai-and-human-rights-2025/", temas:["Estándares","Grupos vulnerables","Género","Impacto ambiental"], tipo:"Declaración", idioma:"EN / ES", anio:2025 },
+  { id:24, categoria:"Casos y jurisprudencia", subcategoria:"Caso judicial internacional", nombre:"Caso SyRI – Tribunal de La Haya (Países Bajos, 2020)", pais:"Países Bajos", descripcion:"El Tribunal de Distrito de La Haya determinó que el algoritmo SyRI, usado por el gobierno para predecir fraude fiscal, era incompatible con el derecho a la vida privada y desproporcionado.", url:"https://djhr.revistas.deusto.es/article/download/2910/3510/", temas:["Privacidad","Algoritmos estatales","Protección social","Sentencia"], tipo:"Jurisprudencia", idioma:"ES (análisis)", anio:2020 },
+  { id:25, categoria:"Casos y jurisprudencia", subcategoria:"Caso judicial latinoamericano", nombre:"Fallo con IA generativa – Corte Constitucional de Colombia", pais:"Colombia", descripcion:"Un juez colombiano usó IA generativa para redactar parte de un fallo judicial, generando debate ético sobre el uso acrítico de herramientas no jurídicas.", url:"https://unamglobal.unam.mx/global_revista/ia-justicia-unam/", temas:["Justicia","IA generativa","Ética judicial","Transparencia"], tipo:"Caso / Jurisprudencia", idioma:"ES", anio:2023 },
+  { id:26, categoria:"Casos y jurisprudencia", subcategoria:"Caso judicial internacional", nombre:"Caso Eric Loomis – Tribunal Supremo de Wisconsin (EEUU)", pais:"EEUU", descripcion:"Caso emblemático sobre uso del algoritmo COMPAS en sentencias penales. El acusado no pudo conocer ni impugnar el funcionamiento del algoritmo que influyó en su condena.", url:"https://unamglobal.unam.mx/global_revista/ia-justicia-unam/", temas:["Justicia penal","Opacidad algorítmica","Derecho de defensa"], tipo:"Jurisprudencia", idioma:"ES (análisis)", anio:2016 },
+  { id:27, categoria:"Casos y jurisprudencia", subcategoria:"Caso empresarial", nombre:"Amazon – Sistema de reclutamiento con sesgo de género (2018)", pais:"EEUU / Global", descripcion:"Amazon descartó su herramienta de reclutamiento con IA al descubrir que penalizaba sistemáticamente currículos de mujeres. El algoritmo había sido entrenado con datos históricos dominados por hombres.", url:"https://www.redseguridad.com/actualidad/discriminacion-inteligencia-artificial-sesgos-ia-casos-reales_20250423.html", temas:["Sesgo de género","Discriminación laboral","Datos de entrenamiento"], tipo:"Caso documentado", idioma:"ES", anio:2018 },
+  { id:28, categoria:"Casos y jurisprudencia", subcategoria:"Caso estatal", nombre:"Försäkringskassan – Algoritmo discriminatorio en Suecia (2024)", pais:"Suecia", descripcion:"La Agencia de Seguridad Social sueca usó IA que seleccionaba injustamente a personas de sectores desfavorecidos para inspecciones de fraude. Amnistía Internacional exigió su suspensión.", url:"https://www.redseguridad.com/actualidad/discriminacion-inteligencia-artificial-sesgos-ia-casos-reales_20250423.html", temas:["Algoritmos estatales","Discriminación","Protección social","Transparencia"], tipo:"Caso documentado", idioma:"ES", anio:2024 },
+  { id:29, categoria:"Casos y jurisprudencia", subcategoria:"Caso judicial latinoamericano", nombre:"Bloqueo judicial de sitio de deepfakes en Argentina (2025)", pais:"Argentina", descripcion:"Un tribunal argentino ordenó el bloqueo inmediato de un sitio que usaba IA para generar contenido íntimo sin consentimiento de adolescentes, aplicando la Ley Olimpia.", url:"https://www.infobae.com/sociedad/2025/05/22/la-justicia-ordeno-bloquear-un-sitio-web-que-utilizaba-inteligencia-artificial-para-generar-contenido-intimo-sin-consentimiento/", temas:["Violencia digital","IA generativa","Género","Menores"], tipo:"Jurisprudencia", idioma:"ES", anio:2025 },
+  { id:30, categoria:"Herramientas y recursos", subcategoria:"Herramienta de evaluación", nombre:"Evaluación de Impacto en DDHH para IA – Ontario Human Rights Commission", pais:"Canadá", descripcion:"Herramienta práctica para que desarrolladores y administradores de sistemas de IA identifiquen, evalúen y mitiguen discriminación a lo largo del ciclo de vida del sistema.", url:"https://www3.ohrc.on.ca/en/human-rights-ai-impact-assessment", temas:["Evaluación de impacto","Herramienta práctica","Discriminación"], tipo:"Herramienta", idioma:"EN", anio:2023 },
+  { id:31, categoria:"Herramientas y recursos", subcategoria:"Caja de herramientas", nombre:"Caja de Herramientas UNESCO sobre IA y Estado de Derecho", pais:"Internacional", descripcion:"Recurso práctico de UNESCO con orientación sobre leyes, principios, normas y jurisprudencia internacional de DDHH para el uso ético de la IA.", url:"https://www.unesco.org/es/articles/inteligencia-artificial-en-la-sala-de-audiencias-fallo-historico-de-la-corte-constitucional-de", temas:["Estado de derecho","Capacitación judicial","Ética","Jurisprudencia"], tipo:"Herramienta", idioma:"ES / EN", anio:2023 },
+  { id:32, categoria:"Herramientas y recursos", subcategoria:"Guía de gestión de riesgos", nombre:"Risk Management Profile for AI and Human Rights – Depto. de Estado EEUU", pais:"EEUU / Internacional", descripcion:"Guía práctica del gobierno de EEUU para gestión de riesgos de IA con perspectiva de derechos humanos. Aborda privacidad, no discriminación, libertad de expresión y reunión.", url:"https://2021-2025.state.gov/risk-management-profile-for-ai-and-human-rights/", temas:["Gestión de riesgos","Privacidad","No discriminación","Empresas"], tipo:"Guía", idioma:"EN", anio:2024 },
+];
+
+const CAT_COLORS = {
+  "Organizaciones":           { accent:"#16a34a" },
+  "Marcos normativos":        { accent:"#2563eb" },
+  "Informes y publicaciones": { accent:"#7c3aed" },
+  "Casos y jurisprudencia":   { accent:"#dc2626" },
+  "Herramientas y recursos":  { accent:"#d97706" },
+};
+const CATEGORIAS = ["Todas","Organizaciones","Marcos normativos","Informes y publicaciones","Casos y jurisprudencia","Herramientas y recursos"];
+
+const allTemas = [...new Set(ENTRIES.flatMap(e => e.temas))].sort();
+const allPaises = [...new Set(ENTRIES.map(e => e.pais.split("/")[0].trim()))].sort();
+const selTema = document.getElementById("sel-tema");
+const selPais = document.getElementById("sel-pais");
+allTemas.forEach(t => { const o = document.createElement("option"); o.value=t; o.textContent=t; selTema.appendChild(o); });
+allPaises.forEach(p => { const o = document.createElement("option"); o.value=p; o.textContent=p; selPais.appendChild(o); });
+document.getElementById("stat-paises").textContent = allPaises.length;
+document.getElementById("stat-temas").textContent = allTemas.length;
+
+let catActiva="Todas", busqueda="", temaActivo="", paisActivo="";
+
+const tabsEl = document.getElementById("tabs");
+CATEGORIAS.forEach(cat => {
+  const count = cat==="Todas" ? ENTRIES.length : ENTRIES.filter(e=>e.categoria===cat).length;
+  const accent = cat==="Todas" ? "#64748b" : (CAT_COLORS[cat]?.accent||"#64748b");
+  const btn = document.createElement("button");
+  btn.className = "tab-btn"+(cat==="Todas"?" active":"");
+  btn.dataset.cat = cat;
+  btn.innerHTML = `${cat} <span class="tab-count">${count}</span>`;
+  if(cat==="Todas"){ btn.style.color="#64748b"; btn.style.borderColor="#94a3b8"; btn.style.background="#f1f5f9"; }
+  btn.addEventListener("click", () => {
+    catActiva = cat;
+    document.querySelectorAll(".tab-btn").forEach(b => {
+      b.classList.remove("active");
+      b.style.color="#94a3b8"; b.style.borderColor="#e2e8f0"; b.style.background="transparent";
+      b.querySelector(".tab-count").style.background="#e2e8f0"; b.querySelector(".tab-count").style.color="#94a3b8";
+    });
+    btn.classList.add("active");
+    btn.style.color=accent; btn.style.borderColor=accent; btn.style.background=accent+"22";
+    btn.querySelector(".tab-count").style.background=accent+"33"; btn.querySelector(".tab-count").style.color=accent;
+    render();
+  });
+  tabsEl.appendChild(btn);
+  if(cat==="Todas"){ btn.querySelector(".tab-count").style.background="#e2e8f0"; btn.querySelector(".tab-count").style.color="#64748b"; }
+});
+
+function makeBadge(text,color,alpha="22",border="44"){
+  return `<span class="badge" style="background:${color}${alpha};color:${color};border-color:${color}${border};">${text}</span>`;
+}
+function renderCard(e){
+  const col = CAT_COLORS[e.categoria]?.accent||"#94a3b8";
+  const badges = [makeBadge(e.categoria,col), e.tipo?makeBadge(e.tipo,"#64748b"):"", e.anio?makeBadge(String(e.anio),"#94a3b8"):""].filter(Boolean).join("");
+  const temasBadges = e.temas.map(t=>makeBadge(t,"#64748b")).join("");
+  const link = e.url ? `<a class="card-link" href="${e.url}" target="_blank" rel="noopener noreferrer" style="color:${col};">Visitar recurso →</a>` : "";
+  return `<div class="card" style="border-color:${col}33;"
+    onmouseenter="this.style.borderColor='${col}88';this.style.transform='translateY(-2px)'"
+    onmouseleave="this.style.borderColor='${col}33';this.style.transform='translateY(0)'">
+    <div class="card-top-line" style="background:linear-gradient(90deg,${col}88,transparent)"></div>
+    <div class="card-badges">${badges}</div>
+    <div class="card-title">${e.nombre}</div>
+    <div class="card-meta"><span>📍 ${e.pais}</span>${e.idioma?`<span class="sep">·</span><span>🌐 ${e.idioma}</span>`:""}</div>
+    <p class="card-desc">${e.descripcion}</p>
+    <div class="card-temas">${temasBadges}</div>
+    ${link}
+  </div>`;
+}
+function render(){
+  const filtered = ENTRIES.filter(e => {
+    const matchCat = catActiva==="Todas"||e.categoria===catActiva;
+    const q = busqueda.toLowerCase();
+    const matchQ = !q||e.nombre.toLowerCase().includes(q)||e.descripcion.toLowerCase().includes(q)||e.temas.some(t=>t.toLowerCase().includes(q));
+    const matchTema = !temaActivo||e.temas.includes(temaActivo);
+    const matchPais = !paisActivo||e.pais.toLowerCase().includes(paisActivo.toLowerCase());
+    return matchCat&&matchQ&&matchTema&&matchPais;
+  });
+  const grid = document.getElementById("grid");
+  const empty = document.getElementById("empty");
+  document.getElementById("result-count").textContent = filtered.length+" resultado"+(filtered.length!==1?"s":"");
+  if(filtered.length===0){ grid.innerHTML=""; empty.style.display="block"; }
+  else { empty.style.display="none"; grid.innerHTML=filtered.map(renderCard).join(""); }
+}
+document.getElementById("search").addEventListener("input", e=>{ busqueda=e.target.value; render(); });
+selTema.addEventListener("change", e=>{ temaActivo=e.target.value; render(); });
+selPais.addEventListener("change", e=>{ paisActivo=e.target.value; render(); });
+render();
+</script>
+</body>
+</html>
