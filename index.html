@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AlgorÉtica · Plataforma de ética algorítmica y derechos humanos</title>
+  <meta name="description" content="Plataforma colaborativa que articula actores, recursos y herramientas para promover transparencia algorítmica, justicia social y soberanía tecnológica." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/algoretica/assets/shared.css" />
+  <style>
+    #alg-hero {
+      background-color: #042732;
+      padding: 72px 6% 80px;
+      display: flex; align-items: center; gap: 48px; flex-wrap: wrap;
+    }
+    #alg-hero-left { flex: 1; min-width: 280px; max-width: 620px; }
+    .alg-eyebrow {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(0,88,99,0.45); color: #7ecfca;
+      font-size: 11px; font-weight: 700; padding: 5px 13px;
+      border-radius: 20px; margin-bottom: 22px;
+      letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .alg-eyebrow-dot { width:6px;height:6px;background:#1D9E75;border-radius:50%;display:inline-block; }
+    #alg-hero h1 {
+      font-size: 38px; font-weight: 700; color: #fff;
+      line-height: 1.22; letter-spacing: -0.02em; margin: 0 0 18px;
+    }
+    #alg-hero h1 em { font-style:normal; color:#4fc4be; }
+    #alg-hero .alg-sub {
+      font-size: 16px; color: rgba(255,255,255,0.72);
+      line-height: 1.75; margin: 0 0 32px; max-width: 520px;
+    }
+    .alg-actions { display:flex; gap:12px; flex-wrap:wrap; }
+    #alg-hero-right { flex: 0 0 340px; }
+    .alg-hero-img {
+      width: 100%; height: 260px; border-radius: 16px;
+      object-fit: cover;
+      background: linear-gradient(135deg, #0a3d4a 0%, #1a6b7a 50%, #0d4f5c 100%);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; position: relative;
+    }
+    .alg-hero-img-placeholder {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 12px; color: rgba(255,255,255,0.4); font-size: 13px; text-align: center;
+    }
+    .alg-hero-img-placeholder span { font-size: 48px; }
+
+    .alg-pillars-wrap { padding: 64px 6%; max-width: 1100px; margin: 0 auto; }
+    .alg-pillars { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; }
+    .alg-pcard {
+      background:#fff; border:1px solid rgba(0,0,0,0.08);
+      border-radius:14px; padding:24px;
+      transition:box-shadow 0.2s, transform 0.2s;
+    }
+    .alg-pcard:hover { box-shadow:0 8px 28px rgba(0,0,0,0.1); transform:translateY(-2px); }
+    .alg-picon { width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:19px;margin-bottom:14px; }
+    .alg-picon.t { background:#e6f4f3; }
+    .alg-picon.o { background:#fdf0ea; }
+    .alg-picon.v { background:#f2f3e6; }
+    .alg-pcard h3 { font-size:16px; font-weight:700; color:#042732; margin:0 0 8px; }
+    .alg-pcard p { font-size:13px; color:#5a6a72; line-height:1.65; margin:0 0 14px; }
+    .alg-plink { font-size:13px; font-weight:700; color:#005863; display:inline-flex; align-items:center; gap:4px; transition:color 0.2s; }
+    .alg-plink:hover { color:#c85b2a; }
+
+    .alg-values-wrap { padding: 0 6% 48px; max-width:1100px; margin:0 auto; }
+    .alg-values-strip {
+      background:#f4f8f7; border-radius:14px; padding:26px 28px;
+      display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:center;
+    }
+    .alg-vpill {
+      display:inline-flex; align-items:center; gap:8px;
+      background:#fff; border:1px solid rgba(0,0,0,0.09);
+      border-radius:24px; padding:8px 16px; font-size:13px; font-weight:600; color:#042732;
+    }
+    .alg-vdot { width:8px;height:8px;border-radius:50%;display:inline-block; }
+
+    /* NOVEDADES en home */
+    .alg-home-news { padding: 0 6% 64px; max-width: 1100px; margin: 0 auto; }
+    .alg-home-news-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:28px; flex-wrap:wrap; gap:12px; }
+    .alg-home-news-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:16px; }
+    .alg-news-mini {
+      background:#fff; border:1px solid rgba(0,0,0,0.08); border-radius:14px;
+      padding:22px; transition:box-shadow 0.2s,transform 0.2s;
+      display:flex; flex-direction:column; gap:8px;
+    }
+    .alg-news-mini:hover { box-shadow:0 6px 22px rgba(0,0,0,0.09); transform:translateY(-2px); }
+    .alg-news-mini-meta { display:flex; align-items:center; gap:8px; }
+    .alg-news-tag { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.07em; padding:3px 9px; border-radius:12px; }
+    .alg-news-date { font-size:12px; color:#94a3b8; }
+    .alg-news-mini h3 { font-size:15px; font-weight:700; color:#042732; line-height:1.35; }
+    .alg-news-mini p { font-size:13px; color:#5a6a72; line-height:1.6; flex:1; }
+    .alg-news-mini-link { font-size:13px; font-weight:700; color:#005863; transition:color 0.2s; }
+    .alg-news-mini-link:hover { color:#c85b2a; }
+
+    .alg-cta-wrap { padding: 0 6% 72px; max-width:1100px; margin:0 auto; }
+    .alg-cta-band {
+      background:#042732; border-radius:16px; padding:44px 48px;
+      display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;
+    }
+    .alg-cta-band h2 { font-size:22px; font-weight:700; color:#fff; line-height:1.35; margin:0 0 8px; }
+    .alg-cta-band p { font-size:14px; color:rgba(255,255,255,0.62); margin:0; line-height:1.6; }
+    .alg-btn-w {
+      display:inline-block; padding:13px 28px; background:#fff; color:#042732;
+      border-radius:8px; font-size:14px; font-weight:700; white-space:nowrap;
+      transition:all 0.2s; box-shadow:0 2px 10px rgba(0,0,0,0.12);
+    }
+    .alg-btn-w:hover { background:#f0f0f0; transform:translateY(-1px); color:#042732; }
+    .alg-divider { border:none; border-top:1px solid rgba(0,0,0,0.07); margin:0 6% 64px; }
+
+    @media (max-width:768px) {
+      #alg-hero { padding:56px 5% 64px; }
+      #alg-hero h1 { font-size:26px; }
+      #alg-hero-right { display:none; }
+      .alg-cta-band { padding:28px 24px; }
+    }
+  </style>
+</head>
+<body>
+<script src="/algoretica/assets/shared.js"></script>
+
+<div id="alg-hero">
+  <div id="alg-hero-left">
+    <div class="alg-eyebrow"><span class="alg-eyebrow-dot"></span>Sur Global · IA y derechos humanos</div>
+    <h1>Plataforma digital para la<br><em>gestión ética</em> de algoritmos<br>con enfoque en derechos humanos.</h1>
+    <p class="alg-sub">Una plataforma colaborativa que articula actores, recursos y herramientas para promover transparencia algorítmica, justicia social y soberanía tecnológica.</p>
+    <div class="alg-actions">
+      <a href="/algoretica/acerca.html" class="alg-btn-primary">Conocer el proyecto</a>
+      <a href="/algoretica/directorio.html" class="alg-btn-outline">Ver directorio</a>
+    </div>
+  </div>
+  <div id="alg-hero-right">
+    <div class="alg-hero-img">
+      <img src="/algoretica/assets/images_Algoretic_WEB__340_x_260_px_.png" alt="AlgorÉtica - Plataforma de ética algorítmica y derechos humanos" style="width:100%;height:100%;object-fit:cover;border-radius:16px;" />
+    </div>
+  </div>
+</div>
+
+<div class="alg-pillars-wrap">
+  <div class="alg-lbl">Ejes principales</div>
+  <h2 class="alg-section-title">¿Qué hace AlgorÉtica?</h2>
+  <p class="alg-section-sub">Articulamos proyectos y recursos que abordan tanto la inteligencia artificial como los entornos digitales donde se juegan derechos y oportunidades. Desde una mirada ética, democrática y territorial, impulsamos prácticas que fortalecen la transparencia, la participación y la soberanía tecnológica.</p>
+  <div class="alg-pillars">
+    <div class="alg-pcard">
+      <div class="alg-picon t">📚</div>
+      <h3>Recursos y formación</h3>
+      <p>Glosarios, kits de auditoría, marcos normativos y contenidos educativos abiertos y en español para comprender y actuar sobre los sistemas algorítmicos.</p>
+      <a href="/algoretica/recursos.html" class="alg-plink">Ver recursos →</a>
+    </div>
+    <div class="alg-pcard">
+      <div class="alg-picon o">📊</div>
+      <h3>Monitoreo y gobernanza</h3>
+      <p>Indicadores, alertas éticas y mecanismos participativos para fortalecer la transparencia algorítmica y el control ciudadano de los sistemas de IA.</p>
+      <a href="/algoretica/servicios.html" class="alg-plink">Descubrir más →</a>
+    </div>
+    <div class="alg-pcard">
+      <div class="alg-picon v">🗂️</div>
+      <h3>Directorio ético de IA</h3>
+      <p>Primer directorio en español de actores, organizaciones, marcos normativos, casos y herramientas verificadas con criterios éticos y perspectiva latinoamericana.</p>
+      <a href="/algoretica/directorio.html" class="alg-plink">Conocer directorio →</a>
+    </div>
+  </div>
+</div>
+
+<hr class="alg-divider">
+
+<div class="alg-values-wrap">
+  <div class="alg-values-strip">
+    <span class="alg-vpill"><span class="alg-vdot" style="background:#005863"></span>Transparencia algorítmica</span>
+    <span class="alg-vpill"><span class="alg-vdot" style="background:#1D9E75"></span>Derechos humanos</span>
+    <span class="alg-vpill"><span class="alg-vdot" style="background:#c85b2a"></span>Justicia social</span>
+    <span class="alg-vpill"><span class="alg-vdot" style="background:#747929"></span>Gobernanza democrática</span>
+    <span class="alg-vpill"><span class="alg-vdot" style="background:#042732"></span>Alfabetización digital</span>
+    <span class="alg-vpill"><span class="alg-vdot" style="background:#7c3aed"></span>Prevención de la trata digital</span>
+  </div>
+</div>
+
+<div class="alg-home-news">
+  <div class="alg-home-news-header">
+    <div>
+      <div class="alg-lbl">Actualidad</div>
+      <h2 class="alg-section-title">Novedades</h2>
+    </div>
+    <a href="/algoretica/novedades.html" class="alg-btn-outline-dark">Ver todas las novedades →</a>
+  </div>
+  <div class="alg-home-news-grid">
+    <div class="alg-news-mini">
+      <div class="alg-news-mini-meta">
+        <span class="alg-news-tag" style="background:#fdf0ea;color:#c85b2a;">Jurisprudencia</span>
+        <span class="alg-news-date">Mayo 2025</span>
+      </div>
+      <h3>Justicia argentina bloqueó sitio de deepfakes que afectaba a menores</h3>
+      <p>Un tribunal argentino ordenó el bloqueo de un sitio que usaba IA para generar contenido íntimo sin consentimiento, aplicando la Ley Olimpia.</p>
+      <a href="/algoretica/novedades.html" class="alg-news-mini-link">Leer más →</a>
+    </div>
+    <div class="alg-news-mini">
+      <div class="alg-news-mini-meta">
+        <span class="alg-news-tag" style="background:#e6f4f3;color:#005863;">Regulación</span>
+        <span class="alg-news-date">2025</span>
+      </div>
+      <h3>Declaración FOC sobre IA y DDHH: Argentina entre los firmantes</h3>
+      <p>La Freedom Online Coalition publicó una declaración conjunta sobre estándares de derechos humanos para sistemas de IA.</p>
+      <a href="/algoretica/novedades.html" class="alg-news-mini-link">Leer más →</a>
+    </div>
+    <div class="alg-news-mini">
+      <div class="alg-news-mini-meta">
+        <span class="alg-news-tag" style="background:#eeedfe;color:#7c3aed;">Nueva entrada</span>
+        <span class="alg-news-date">2025</span>
+      </div>
+      <h3>Lanzamiento del Directorio IA & Derechos Humanos</h3>
+      <p>Primera versión del directorio en español con 32 entradas sobre organizaciones, marcos normativos, casos y herramientas.</p>
+      <a href="/algoretica/directorio.html" class="alg-news-mini-link">Ver directorio →</a>
+    </div>
+  </div>
+</div>
+
+<div class="alg-cta-wrap">
+  <div class="alg-cta-band">
+    <div>
+      <h2>La trata de personas en entornos digitales</h2>
+      <p>Detectá riesgos, fortalecé la protección de derechos humanos<br>y garantizá transparencia en el uso de la IA.</p>
+    </div>
+    <a href="/algoretica/trata.html" class="alg-btn-w">Conocer más</a>
+  </div>
+</div>
+
+</body>
+</html>
