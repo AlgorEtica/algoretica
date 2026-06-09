@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Acerca de · AlgorÉtica</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/shared.css" />
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <style>
+    .alg-about-intro { font-size:16px; color:#5a6a72; line-height:1.8; max-width:780px; margin-bottom:48px; font-style:italic; }
+    .alg-about-grid { display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:start; margin-bottom:64px; }
+    .alg-about-grid p { font-size:15px; color:#5a6a72; line-height:1.8; margin-bottom:16px; }
+    .alg-values-list { list-style:none; padding:0; display:flex; flex-direction:column; gap:14px; }
+    .alg-values-list li { display:flex; align-items:flex-start; gap:12px; font-size:14px; color:#5a6a72; line-height:1.6; }
+    .alg-values-list li span { font-size:20px; flex-shrink:0; margin-top:2px; }
+    .alg-values-list li strong { color:#042732; display:block; margin-bottom:2px; font-size:15px; }
+
+    /* EQUIPO */
+    .alg-team-section { margin-top:64px; }
+    .alg-team-intro { font-size:15px; color:#5a6a72; line-height:1.75; max-width:680px; margin-bottom:40px; }
+    .alg-team-grid { display:flex; flex-direction:column; gap:32px; }
+    .alg-team-card {
+      background:#fff; border:1px solid rgba(0,0,0,0.08); border-radius:16px;
+      padding:28px 32px; display:flex; gap:28px; align-items:flex-start;
+      transition:box-shadow 0.2s;
+    }
+    .alg-team-card:hover { box-shadow:0 6px 24px rgba(0,0,0,0.08); }
+    .alg-team-photo {
+      width:100px; height:120px; border-radius:10px; flex-shrink:0;
+      background: linear-gradient(135deg, #e6f4f3 0%, #c5e8e5 100%);
+      display:flex; align-items:center; justify-content:center;
+      font-size:36px; color:#005863; border:2px solid #e6f4f3;
+      overflow:hidden;
+    }
+    .alg-team-photo img { width:100%; height:100%; object-fit:cover; border-radius:8px; }
+    .alg-team-photo-placeholder { display:flex; flex-direction:column; align-items:center; gap:4px; }
+    .alg-team-photo-placeholder span { font-size:32px; }
+    .alg-team-photo-placeholder small { font-size:9px; color:#94a3b8; text-align:center; line-height:1.3; }
+    .alg-team-info { flex:1; }
+    .alg-team-name { font-size:18px; font-weight:700; color:#042732; margin-bottom:4px; }
+    .alg-team-role { font-size:13px; font-weight:600; color:#005863; margin-bottom:12px; }
+    .alg-team-bio { font-size:13px; color:#5a6a72; line-height:1.7; }
+
+    .alg-pillars-3 { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; margin-top:32px; }
+    .alg-pillar-mini { background:#f4f8f7; border-radius:12px; padding:24px; }
+    .alg-pillar-mini h3 { font-size:15px; font-weight:700; color:#042732; margin-bottom:8px; }
+    .alg-pillar-mini p { font-size:13px; color:#5a6a72; line-height:1.65; }
+
+    .alg-contact-box { background:#042732; border-radius:16px; padding:40px 48px; color:#fff; margin-top:64px; }
+    .alg-contact-box h2 { font-size:22px; font-weight:700; margin-bottom:10px; }
+    .alg-contact-box p { font-size:15px; color:rgba(255,255,255,0.7); line-height:1.7; margin-bottom:24px; }
+    .alg-contact-box a.alg-email { color:#4fc4be; font-size:16px; font-weight:600; }
+
+    @media(max-width:768px){
+      .alg-about-grid{grid-template-columns:1fr;}
+      .alg-contact-box{padding:28px 24px;}
+      .alg-team-card{flex-direction:column;}
+      .alg-team-photo{width:80px;height:100px;}
+    }
+  </style>
+</head>
+<body>
+<script src="/assets/shared.js"></script>
+
+<div class="alg-page-hero">
+  <div class="alg-page-hero-inner">
+    <div class="alg-lbl">El proyecto</div>
+    <h1>Acerca de AlgorÉtica</h1>
+    <p>Somos una plataforma colaborativa creada desde el Sur Global que articula actores, recursos y herramientas en torno a la inteligencia artificial y los entornos digitales, con foco en ética algorítmica y derechos humanos.</p>
+  </div>
+</div>
+
+<div class="alg-section">
+
+  <div class="alg-about-grid">
+    <div>
+      <div class="alg-lbl">Origen y misión</div>
+      <h2 class="alg-section-title">¿Por qué AlgorÉtica?</h2>
+      <p>Los sistemas algorítmicos y los entornos digitales transforman derechos, decisiones y oportunidades de millones de personas. Sin embargo, las discusiones sobre ética tecnológica suelen darse en idiomas y contextos que no reflejan la realidad de América Latina ni del Sur Global. AlgorÉtica surge para cambiar eso: una plataforma colaborativa que articula actores, recursos y herramientas con mirada ética, democrática y territorial.</p>
+      <p>El Portal AlgorÉtica es una apuesta política por transformar instituciones y prácticas frente al avance de la inteligencia artificial y la automatización en entornos digitales. Proponemos una infraestructura pública que defienda derechos humanos, fortalezca capacidades locales y visibilice saberes territoriales como estrategia de resistencia y justicia digital.</p>
+      <p>Uno de nuestros compromisos centrales es la prevención de la captación de la trata de personas en espacios digitales, visibilizando riesgos y promoviendo herramientas de protección.</p>
+    </div>
+    <div>
+      <div class="alg-lbl">Nuestros valores</div>
+      <ul class="alg-values-list">
+        <li><span><i class="ph-bold ph-magnifying-glass"></i></span><div><strong>Transparencia algorítmica</strong>Los sistemas de IA y plataformas digitales que afectan derechos deben ser auditables, explicables y responsables.</div></li>
+        <li><span><i class="ph-bold ph-scales"></i></span><div><strong>Justicia social</strong>La tecnología no es neutra. Trabajamos para que no reproduzca ni amplíe desigualdades existentes.</div></li>
+        <li><span>🌍</span><div><strong>Soberanía tecnológica</strong>Los pueblos tienen derecho a decidir cómo se diseña, despliega y regula la IA y los entornos digitales en sus territorios.</div></li>
+        <li><span><i class="ph-bold ph-handshake"></i></span><div><strong>Gobernanza democrática</strong>La regulación de la IA y de los sistemas digitales debe construirse con participación de la sociedad civil, no solo de empresas y gobiernos.</div></li>
+        <li><span>📖</span><div><strong>Alfabetización digital</strong>El conocimiento sobre IA y entornos digitales debe ser accesible, en español y con perspectiva latinoamericana.</div></li>
+        <li><span>🛡️</span><div><strong>Prevención de la trata digital</strong>Nos comprometemos a visibilizar riesgos y construir herramientas que protejan a las personas frente a la captación y explotación en espacios digitales.</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="alg-lbl">Qué hacemos</div>
+  <h2 class="alg-section-title">Tres ejes de trabajo</h2>
+  <div class="alg-pillars-3">
+    <div class="alg-pillar-mini">
+      <h3>📚 Recursos y formación</h3>
+      <p>Glosarios, kits de auditoría, marcos normativos y contenidos educativos abiertos y en español para comprender y actuar sobre los sistemas algorítmicos.</p>
+    </div>
+    <div class="alg-pillar-mini">
+      <h3>📊 Monitoreo y gobernanza</h3>
+      <p>Indicadores, alertas éticas y mecanismos participativos para fortalecer la transparencia algorítmica y el control ciudadano de los sistemas de IA.</p>
+    </div>
+    <div class="alg-pillar-mini">
+      <h3>🗂️ Directorio ético de IA</h3>
+      <p>Primer directorio en español de actores, organizaciones, marcos normativos, casos y herramientas verificadas con criterios éticos y perspectiva latinoamericana.</p>
+    </div>
+  </div>
+
+  <!-- EQUIPO -->
+  <div id="equipo" class="alg-team-section">
+    <div class="alg-lbl">Las personas</div>
+    <h2 class="alg-section-title">El equipo</h2>
+    <p class="alg-team-intro">Somos un equipo interdisciplinario con experiencia en cooperación técnica, innovación institucional, derechos humanos y justicia digital. Desde distintas trayectorias, desarrollamos herramientas colectivas y sistemas abiertos que fortalecen una gobernanza algorítmica ética, situada en los territorios y con enfoque de derechos.</p>
+
+    <div class="alg-team-grid">
+
+      <div class="alg-team-card">
+        <div class="alg-team-photo">
+          <div class="alg-team-photo-placeholder"><span>👤</span><small>Foto<br>próximamente</small></div>
+        </div>
+        <div class="alg-team-info">
+          <div class="alg-team-name">Fernanda Gil Lozano</div>
+          <div class="alg-team-role">Historiadora · Derechos Humanos y Género</div>
+          <p class="alg-team-bio">Historiadora. Docente de la Universidad de Buenos Aires. Diputada Nacional Mandato Cumplido. Parlamentaria del Mercosur Mandato Cumplido. Cuenta con una amplia trayectoria en materia de cuestiones de género y políticas públicas en organismos nacionales e internacionales como el Centro Internacional para la Promoción de los Derechos Humanos, Centro Categoría II de la UNESCO. Actualmente se desempeña en la Dirección de Derechos Humanos - Memoria, Verdad y Justicia, de la Defensoría del Pueblo de la Ciudad de Buenos Aires.</p>
+        </div>
+      </div>
+
+      <div class="alg-team-card">
+        <div class="alg-team-photo">
+          <div class="alg-team-photo-placeholder"><span>👤</span><small>Foto<br>próximamente</small></div>
+        </div>
+        <div class="alg-team-info">
+          <div class="alg-team-name">Elena Hanono</div>
+          <div class="alg-team-role">Especialista en Derechos Humanos, Género y Tecnología</div>
+          <p class="alg-team-bio">Especialista en derechos humanos, género y tecnología, con amplia trayectoria en investigación, incidencia y capacitación en temas relacionados con la igualdad, la protección de colectivos vulnerables y los derechos de mujeres rurales, pueblos y naciones originarias. Coordinadora de proyectos internacionales, ha liderado debates sobre ética y tecnologías emergentes, promoviendo cambios normativos y políticas públicas. Comprometida con la participación activa, la articulación interinstitucional y la generación de conocimiento para la transformación social.</p>
+        </div>
+      </div>
+
+      <div class="alg-team-card">
+        <div class="alg-team-photo">
+          <div class="alg-team-photo-placeholder"><span>👤</span><small>Foto<br>próximamente</small></div>
+        </div>
+        <div class="alg-team-info">
+          <div class="alg-team-name">Tatiana Sousa</div>
+          <div class="alg-team-role">Periodista · Gestora de Contenidos</div>
+          <p class="alg-team-bio">Producción y redacción integral multimedia. Periodista. Redactora. Gestora de contenidos especializados en Derechos Humanos y Agenda Cultural. Actualmente trabaja en la Dirección de Derechos Humanos - Memoria, Verdad y Justicia de la Defensoría del Pueblo de la Ciudad de Buenos Aires.</p>
+        </div>
+      </div>
+
+      <div class="alg-team-card">
+        <div class="alg-team-photo">
+          <div class="alg-team-photo-placeholder"><span>👤</span><small>Foto<br>próximamente</small></div>
+        </div>
+        <div class="alg-team-info">
+          <div class="alg-team-name">Carolina Tellería</div>
+          <div class="alg-team-role">Especialista en Cooperación Técnica e Innovación Institucional</div>
+          <p class="alg-team-bio">Licenciada en Ciencias de la Comunicación (UBA), Maestranda en Ciencia, Tecnología y Sociedad (UNQ) y Psicóloga Social (Pichón Riviere). Cuenta con una sólida trayectoria en el diseño, gestión y evaluación de proyectos estratégicos vinculados a la cooperación internacional, la articulación multisectorial y la transformación institucional. Ha liderado equipos en organismos públicos, multilaterales y consultoras especializadas, desarrollando modelos de gobernanza colaborativa, campañas educativas y marcos normativos con enfoque territorial, ético y participativo.</p>
+        </div>
+      </div>
+
+      <div class="alg-team-card">
+        <div class="alg-team-photo">
+          <div class="alg-team-photo-placeholder"><span>👤</span><small>Foto<br>próximamente</small></div>
+        </div>
+        <div class="alg-team-info">
+          <div class="alg-team-name">Lucero Vega</div>
+          <div class="alg-team-role">Estratega en Comunicación Institucional y Alfabetizadora Digital</div>
+          <p class="alg-team-bio">Formada en comunicación, desarrollo web y producción audiovisual, con formación en curso en ciberseguridad. Integra herramientas técnicas con una mirada estratégica orientada tanto a la organización de procesos comunicacionales como al desarrollo de pensamiento crítico y autonomía en entornos digitales. Cuenta con experiencia en organismos internacionales, proyectos institucionales y ONGs.</p>
+        </div>
+      </div>
+
+      <div class="alg-team-card">
+        <div class="alg-team-photo">
+          <div class="alg-team-photo-placeholder"><span>👤</span><small>Foto<br>próximamente</small></div>
+        </div>
+        <div class="alg-team-info">
+          <div class="alg-team-name">Magdalena Aquino</div>
+          <div class="alg-team-role">Antropóloga · Investigadora</div>
+          <p class="alg-team-bio">Licenciada en Antropología (UBA) recibida con diploma de honor. Doctoranda en Antropología Social (IDAES-UNSAM). Docente de la Universidad de Buenos Aires e integrante del Instituto de Ciencias Antropológicas (UBA). Especialista en juventudes, procesos de memorialización, lenguajes artísticos y derechos humanos. Coordina iniciativas de alcance regional articulando investigación académica, gestión cultural y trabajo territorial.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="contacto" class="alg-contact-box">
+    <h2>Contacto</h2>
+    <p>¿Tenés una organización, recurso o caso que debería estar en el directorio? ¿Querés colaborar con el proyecto? Escribinos.</p>
+    <a href="mailto:algoretica@gmail.com" class="alg-email">algoretica@gmail.com</a>
+  </div>
+
+</div>
+</body>
+</html>

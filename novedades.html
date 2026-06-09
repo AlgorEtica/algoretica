@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Novedades · AlgorÉtica</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/shared.css" />
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <style>
+    /* FILTROS */
+    .alg-news-filters { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:32px; align-items:center; }
+    .alg-filter-pill {
+      padding:7px 16px; border-radius:24px; font-size:12px; font-weight:600;
+      border:1px solid rgba(0,0,0,0.1); cursor:pointer; transition:all 0.2s;
+      color:#5a6a72; background:#fff; font-family:'Inter',sans-serif;
+    }
+    .alg-filter-pill.active, .alg-filter-pill:hover { background:#005863; color:#fff; border-color:#005863; }
+    .alg-filter-pill.type-directorio.active { background:#7c3aed; border-color:#7c3aed; }
+    .alg-filter-pill.type-noticia.active { background:#005863; border-color:#005863; }
+
+    /* GRID */
+    .alg-news-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:20px; }
+    .alg-news-card {
+      background:#fff; border:1px solid rgba(0,0,0,0.08); border-radius:14px;
+      padding:24px; display:flex; flex-direction:column; gap:10px;
+      transition:box-shadow 0.2s,transform 0.2s;
+    }
+    .alg-news-card:hover { box-shadow:0 8px 28px rgba(0,0,0,0.1); transform:translateY(-2px); }
+    .alg-news-card[data-hidden="true"] { display:none; }
+    .alg-news-meta { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+    .alg-news-tag { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.07em; padding:3px 9px; border-radius:12px; }
+    .alg-news-type { font-size:11px; font-weight:600; padding:3px 9px; border-radius:12px; }
+    .alg-news-date { font-size:12px; color:#94a3b8; margin-left:auto; }
+    .alg-news-card h3 { font-size:16px; font-weight:700; color:#042732; line-height:1.35; }
+    .alg-news-card p { font-size:13px; color:#5a6a72; line-height:1.65; flex:1; }
+    .alg-news-link { font-size:13px; font-weight:700; color:#005863; transition:color 0.2s; }
+    .alg-news-link:hover { color:#c85b2a; }
+
+    /* SUSCRIPCIÓN */
+    .alg-subscribe-inline {
+      background:#f4f8f7; border-radius:16px; padding:36px 40px; margin-top:56px;
+    }
+    .alg-subscribe-inline h2 { font-size:20px; font-weight:700; color:#042732; margin-bottom:8px; }
+    .alg-subscribe-inline p { font-size:14px; color:#5a6a72; margin-bottom:20px; line-height:1.6; }
+    .alg-subscribe-form { display:flex; gap:10px; flex-wrap:wrap; }
+    .alg-gform-wrap { margin-top:16px; }
+  </style>
+</head>
+<body>
+<script src="/assets/shared.js"></script>
+
+<div class="alg-page-hero">
+  <div class="alg-page-hero-inner">
+    <div class="alg-lbl">Actualidad</div>
+    <h1>Novedades</h1>
+    <p>Noticias, análisis y actualizaciones sobre ética algorítmica, regulación de la inteligencia artificial y de los entornos digitales, con foco en derechos humanos en América Latina y el mundo.</p>
+  </div>
+</div>
+
+<div class="alg-section">
+
+  <div class="alg-news-filters">
+    <button class="alg-filter-pill active" onclick="filtrarNoticias('todas', this)">Todas</button>
+    <button class="alg-filter-pill type-noticia" onclick="filtrarNoticias('noticia', this)">Noticias</button>
+    <button class="alg-filter-pill type-directorio" onclick="filtrarNoticias('directorio', this)">Nuevas entradas al directorio</button>
+    <button class="alg-filter-pill" onclick="filtrarNoticias('jurisprudencia', this)">Jurisprudencia</button>
+    <button class="alg-filter-pill" onclick="filtrarNoticias('regulacion', this)">Regulación</button>
+    <button class="alg-filter-pill" onclick="filtrarNoticias('informe', this)">Informes</button>
+  </div>
+
+  <div class="alg-news-grid" id="alg-news-grid">
+
+    <div class="alg-news-card" data-tipo="jurisprudencia">
+      <div class="alg-news-meta">
+        <span class="alg-news-tag" style="background:#fdf0ea;color:#c85b2a;">Jurisprudencia</span>
+        <span class="alg-news-type" style="background:#f1f5f9;color:#5a6a72;">Noticia</span>
+        <span class="alg-news-date">Mayo 2025</span>
+      </div>
+      <h3>Justicia argentina bloqueó sitio de deepfakes que afectaba a menores</h3>
+      <p>Un tribunal argentino ordenó el bloqueo inmediato de un sitio que usaba IA para generar contenido íntimo sin consentimiento de adolescentes, aplicando la Ley Olimpia.</p>
+      <a href="/directorio.html" class="alg-news-link">Ver entrada en el directorio →</a>
+    </div>
+
+    <div class="alg-news-card" data-tipo="regulacion">
+      <div class="alg-news-meta">
+        <span class="alg-news-tag" style="background:#e6f4f3;color:#005863;">Regulación</span>
+        <span class="alg-news-type" style="background:#f1f5f9;color:#5a6a72;">Noticia</span>
+        <span class="alg-news-date">2025</span>
+      </div>
+      <h3>Declaración FOC sobre IA y DDHH: Argentina entre los firmantes</h3>
+      <p>La Freedom Online Coalition, que incluye a Argentina, Chile, Colombia y México, publicó una declaración conjunta sobre estándares de derechos humanos para sistemas de IA, con énfasis en grupos vulnerables.</p>
+      <a href="/directorio.html" class="alg-news-link">Ver entrada en el directorio →</a>
+    </div>
+
+    <div class="alg-news-card" data-tipo="directorio">
+      <div class="alg-news-meta">
+        <span class="alg-news-tag" style="background:#eeedfe;color:#7c3aed;">Nueva entrada</span>
+        <span class="alg-news-type" style="background:#eeedfe;color:#7c3aed;">Directorio</span>
+        <span class="alg-news-date">2025</span>
+      </div>
+      <h3>Lanzamiento del Directorio IA & Derechos Humanos</h3>
+      <p>Primera versión del directorio en español con 32 entradas sobre organizaciones, marcos normativos, casos y herramientas sobre IA y derechos humanos con perspectiva latinoamericana.</p>
+      <a href="/directorio.html" class="alg-news-link">Ir al directorio →</a>
+    </div>
+
+    <div class="alg-news-card" data-tipo="informe">
+      <div class="alg-news-meta">
+        <span class="alg-news-tag" style="background:#f2f3e6;color:#747929;">Informe</span>
+        <span class="alg-news-type" style="background:#f1f5f9;color:#5a6a72;">Noticia</span>
+        <span class="alg-news-date">2024</span>
+      </div>
+      <h3>ILIA 2024: Chile, Brasil y Uruguay lideran gobernanza de IA en la región</h3>
+      <p>El Índice Latinoamericano de IA evalúa 19 países. Argentina aparece como adoptante intermedio con avances en I+D pero rezagada en regulación.</p>
+      <a href="/directorio.html" class="alg-news-link">Ver entrada en el directorio →</a>
+    </div>
+
+    <div class="alg-news-card" data-tipo="regulacion">
+      <div class="alg-news-meta">
+        <span class="alg-news-tag" style="background:#e6f4f3;color:#005863;">Regulación</span>
+        <span class="alg-news-type" style="background:#f1f5f9;color:#5a6a72;">Noticia</span>
+        <span class="alg-news-date">2024</span>
+      </div>
+      <h3>Primer tratado vinculante sobre IA del Consejo de Europa</h3>
+      <p>La Convención Marco sobre IA, adoptada en 2024, establece por primera vez obligaciones legales para proteger derechos humanos frente a sistemas de inteligencia artificial.</p>
+      <a href="/directorio.html" class="alg-news-link">Ver entrada en el directorio →</a>
+    </div>
+
+    <div class="alg-news-card" data-tipo="jurisprudencia">
+      <div class="alg-news-meta">
+        <span class="alg-news-tag" style="background:#fdf0ea;color:#c85b2a;">Jurisprudencia</span>
+        <span class="alg-news-type" style="background:#f1f5f9;color:#5a6a72;">Noticia</span>
+        <span class="alg-news-date">2024</span>
+      </div>
+      <h3>Suecia: algoritmo estatal discriminó a personas en situación de vulnerabilidad</h3>
+      <p>Amnistía Internacional exigió suspender el sistema de IA de la Agencia de Seguridad Social sueca tras documentar discriminación sistemática en controles de fraude.</p>
+      <a href="/directorio.html" class="alg-news-link">Ver entrada en el directorio →</a>
+    </div>
+
+  </div>
+
+  <div class="alg-subscribe-inline">
+    <h2>Mantenete informado/a</h2>
+    <p>Dejá tu nombre y correo y te avisamos cuando haya nuevas noticias y entradas en el directorio.</p>
+    <div class="alg-gform-wrap">
+      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe_xDLyXEXu310PxOsZTDgxdo1UVv6ZJBl-Ap39wQXHCs9-Gg/viewform?embedded=true" width="100%" height="480" frameborder="0" marginheight="0" marginwidth="0" style="border:none;max-width:600px;display:block;">Cargando…</iframe>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function filtrarNoticias(tipo, btn) {
+  document.querySelectorAll('.alg-filter-pill').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.alg-news-card').forEach(card => {
+    if (tipo === 'todas' || card.dataset.tipo === tipo) {
+      card.removeAttribute('data-hidden');
+      card.style.display = '';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
+</script>
+</body>
+</html>
