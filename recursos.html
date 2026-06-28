@@ -1,93 +1,624 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Recursos · AlgorÉtica</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/assets/shared.css" />
-  <script src="https://unpkg.com/@phosphor-icons/web"></script>
-  <style>
-    .alg-recursos-cats { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:32px; }
-    .alg-cat-pill { padding:7px 16px; border-radius:24px; font-size:12px; font-weight:600; border:1px solid rgba(0,0,0,0.1); cursor:pointer; transition:all 0.2s; color:#5a6a72; background:#fff; }
-    .alg-cat-pill.active, .alg-cat-pill:hover { background:#005863; color:#fff; border-color:#005863; }
-    .alg-recursos-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:16px; }
-    .alg-recurso-card { background:#fff; border:1px solid rgba(0,0,0,0.08); border-radius:14px; padding:24px; transition:box-shadow 0.2s,transform 0.2s; display:flex; flex-direction:column; gap:10px; }
-    .alg-recurso-card:hover { box-shadow:0 6px 22px rgba(0,0,0,0.09); transform:translateY(-2px); }
-    .alg-recurso-type { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; }
-    .alg-recurso-card h3 { font-size:15px; font-weight:700; color:#042732; line-height:1.35; }
-    .alg-recurso-card p { font-size:13px; color:#5a6a72; line-height:1.65; flex:1; }
-    .alg-recurso-link { font-size:13px; font-weight:700; color:#005863; transition:color 0.2s; }
-    .alg-recurso-link:hover { color:#c85b2a; }
-    .alg-coming-soon { background:#f4f8f7; border-radius:14px; padding:40px; text-align:center; margin-top:48px; }
-    .alg-coming-soon p { font-size:14px; color:#5a6a72; line-height:1.7; max-width:500px; margin:0 auto; }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Recursos — AlgorÉtica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/shared.css" />
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:        #042732;
+    --surface:   #0a3240;
+    --border:    #0f4157;
+    --border-hi: #1a6070;
+    --text:      #e2e8f0;
+    --muted:     #64748b;
+    --faint:     #334155;
+
+    /* Accent per section */
+    --casos:      #e85d3a;   /* terracota-fuego  */
+    --norma:      #4a90d9;   /* azul institucional */
+    --herram:     #3abf8f;   /* verde-acción       */
+    --inform:     #c4a94e;   /* ocre-archivo       */
+
+    --sans: 'Inter', sans-serif;
+    --serif: 'Sora', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 15px; line-height: 1.6; }
+
+  a { color: inherit; text-decoration: none; }
+
+
+
+  /* ── HEADER ── */
+  .page-header {
+    padding: 64px 32px 48px;
+    max-width: 1100px; margin: 0 auto;
+    border-bottom: 1px solid var(--border);
+  }
+  .page-eyebrow {
+    font-family: var(--mono); font-size: 11px; letter-spacing: .12em;
+    color: var(--muted); text-transform: uppercase; margin-bottom: 16px;
+  }
+  .page-title {
+    font-family: var(--serif); font-size: clamp(32px, 5vw, 52px);
+    line-height: 1.1; margin-bottom: 16px; color: var(--text);
+  }
+  .page-desc { font-size: 15px; color: var(--muted); max-width: 560px; line-height: 1.7; }
+
+  /* ── HUB GRID ── */
+  .hub {
+    max-width: 1100px; margin: 0 auto;
+    padding: 56px 32px 80px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 700px) { .hub { grid-template-columns: 1fr; } }
+
+  /* ── SECTION CARD ── */
+  .sec-card {
+    position: relative; overflow: hidden;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 36px 32px 32px;
+    cursor: pointer;
+    transition: border-color .2s, transform .2s;
+    display: flex; flex-direction: column; gap: 20px;
+  }
+  .sec-card:hover { border-color: var(--border-hi); transform: translateY(-2px); }
+  .sec-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--accent);
+  }
+  .sec-card[data-sec="casos"]  { --accent: var(--casos);  }
+  .sec-card[data-sec="norma"]  { --accent: var(--norma);  }
+  .sec-card[data-sec="herram"] { --accent: var(--herram); }
+  .sec-card[data-sec="inform"] { --accent: var(--inform); }
+
+  .sec-icon {
+    width: 44px; height: 44px; border-radius: 8px;
+    background: color-mix(in srgb, var(--accent) 15%, transparent);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; flex-shrink: 0;
+  }
+  .sec-label {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .sec-title {
+    font-family: var(--serif); font-size: 22px; line-height: 1.2;
+    color: var(--text); margin-bottom: 10px;
+  }
+  .sec-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+  .sec-meta {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: auto; padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+  .sec-count {
+    font-family: var(--mono); font-size: 11px; color: var(--muted);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .sec-count strong { color: var(--text); font-size: 14px; }
+  .sec-cta {
+    font-size: 12px; font-weight: 600; color: var(--accent);
+    display: flex; align-items: center; gap: 4px;
+    transition: gap .15s;
+  }
+  .sec-card:hover .sec-cta { gap: 8px; }
+
+  .sec-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .sec-tag {
+    font-size: 11px; color: var(--muted);
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 3px; padding: 2px 8px;
+  }
+
+
+  /* ═══════════════════════════════════════════════
+     PÁGINAS INTERNAS (ocultas por defecto)
+  ════════════════════════════════════════════════ */
+  .inner-page { display: none; }
+  .inner-page.active { display: block; }
+
+  /* Breadcrumb */
+  .breadcrumb {
+    padding: 16px 32px; border-bottom: 1px solid var(--border);
+    max-width: 1100px; margin: 0 auto;
+    font-size: 12px; color: var(--muted);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .breadcrumb a { color: var(--muted); transition: color .15s; }
+  .breadcrumb a:hover { color: var(--text); }
+  .breadcrumb .sep { color: var(--faint); }
+  .breadcrumb .current { color: var(--text); }
+
+  /* Inner header */
+  .inner-header {
+    padding: 48px 32px 36px;
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: flex-start; gap: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .inner-accent-bar { width: 4px; border-radius: 2px; background: var(--accent); align-self: stretch; flex-shrink: 0; }
+  .inner-header-text { flex: 1; }
+
+  /* Filters strip */
+  .filters-strip {
+    padding: 16px 32px; border-bottom: 1px solid var(--border);
+    max-width: 1100px; margin: 0 auto;
+    display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
+  }
+  .filter-input {
+    flex: 1 1 200px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 4px;
+    padding: 8px 12px; color: var(--text); font-size: 13px; font-family: var(--sans);
+    outline: none; transition: border-color .15s;
+  }
+  .filter-input:focus { border-color: var(--border-hi); }
+  .filter-select {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 4px;
+    padding: 8px 10px; color: var(--muted); font-size: 13px; font-family: var(--sans);
+    outline: none; cursor: pointer;
+  }
+  .result-badge {
+    font-family: var(--mono); font-size: 11px; color: var(--muted);
+    margin-left: auto; white-space: nowrap;
+  }
+
+  /* Cards grid */
+  .cards-area {
+    max-width: 1100px; margin: 0 auto;
+    padding: 32px 32px 72px;
+  }
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 14px;
+  }
+
+  /* Entry card */
+  .entry-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 4px; padding: 20px;
+    display: flex; flex-direction: column; gap: 12px;
+    transition: border-color .15s;
+  }
+  .entry-card:hover { border-color: var(--border-hi); }
+  .entry-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+  .entry-badge {
+    font-size: 10px; font-family: var(--mono); letter-spacing: .06em;
+    padding: 3px 8px; border-radius: 3px; text-transform: uppercase;
+    background: color-mix(in srgb, var(--accent) 18%, transparent);
+    color: var(--accent); flex-shrink: 0;
+  }
+  .entry-flag { font-size: 11px; color: var(--muted); white-space: nowrap; }
+  .entry-name { font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.35; }
+  .entry-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
+  .entry-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+  .entry-tag {
+    font-size: 10px; color: var(--faint); border: 1px solid var(--border);
+    border-radius: 3px; padding: 1px 6px; font-family: var(--mono);
+  }
+  .entry-link {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 11px; color: var(--accent); font-weight: 600;
+    margin-top: auto;
+    transition: gap .15s;
+  }
+  .entry-card:hover .entry-link { gap: 7px; }
+
+  /* Subcategory divider */
+  .subcat-divider {
+    grid-column: 1 / -1;
+    display: flex; align-items: center; gap: 12px;
+    margin-top: 16px; margin-bottom: 4px;
+  }
+  .subcat-divider span {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .1em;
+    color: var(--muted); text-transform: uppercase; white-space: nowrap;
+  }
+  .subcat-line { flex: 1; height: 1px; background: var(--border); }
+
+  /* Empty state */
+  .empty-state {
+    text-align: center; padding: 60px 0;
+    color: var(--muted); font-size: 14px;
+  }
+
+  /* ── HUB view wrapper ── */
+  #view-hub { display: block; }
+</style>
 </head>
 <body>
 <script src="/assets/shared.js"></script>
 
-<div class="alg-page-hero">
-  <div class="alg-page-hero-inner">
-    <div class="alg-lbl">Materiales abiertos</div>
-    <h1>Recursos</h1>
-    <p>Glosarios, kits de auditoría, marcos normativos y contenidos educativos abiertos sobre ética algorítmica y derechos humanos en español.</p>
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">AlgorÉtica <span>/ Directorio IA &amp; DDHH</span></div>
+  <div class="nav-links">
+    <a href="#">Inicio</a>
+    <a href="#">Directorio</a>
+    <a href="#" class="active" onclick="showHub(); return false;">Recursos</a>
+    <a href="#">Sobre el proyecto</a>
   </div>
+</nav>
+
+<!-- ══════════════════ HUB ══════════════════ -->
+<div id="view-hub">
+  <div class="page-header">
+    <div class="page-eyebrow">Recursos documentados — LAC &amp; Global</div>
+    <h1 class="page-title">Recursos</h1>
+    <p class="page-desc">Material curado para litigar, legislar, auditar, investigar, capacitar y hacer incidencia en torno a la IA, los derechos humanos y el combate a la trata digital.</p>
+  </div>
+
+  <div class="hub">
+
+    <!-- CASOS -->
+    <div class="sec-card" data-sec="casos" onclick="showSection('casos')">
+      <div style="display:flex;gap:16px;align-items:flex-start">
+        <div class="sec-icon" style="--accent:var(--casos)">⚖️</div>
+        <div>
+          <div class="sec-label">Sección 01</div>
+          <div class="sec-title">Casos</div>
+          <div class="sec-desc">Casos judiciales, violaciones documentadas y situaciones de alerta que ilustran el impacto real de la IA y las tecnologías digitales sobre los derechos humanos.</div>
+        </div>
+      </div>
+      <div class="sec-tags">
+        <span class="sec-tag">Jurisprudencia</span>
+        <span class="sec-tag">Violaciones documentadas</span>
+        <span class="sec-tag">Alertas</span>
+        <span class="sec-tag">Trata digital</span>
+      </div>
+      <div class="sec-meta">
+        <div class="sec-count"><strong id="count-casos">—</strong> entradas</div>
+        <div class="sec-cta">Ver casos →</div>
+      </div>
+    </div>
+
+    <!-- NORMATIVA -->
+    <div class="sec-card" data-sec="norma" onclick="showSection('norma')">
+      <div style="display:flex;gap:16px;align-items:flex-start">
+        <div class="sec-icon" style="--accent:var(--norma)">📜</div>
+        <div>
+          <div class="sec-label">Sección 02</div>
+          <div class="sec-title">Normativa y jurisprudencia</div>
+          <div class="sec-desc">Leyes, reglamentos, resoluciones, tratados y fallos relevantes sobre IA y derechos humanos en América Latina y a nivel global. Marco legal de referencia.</div>
+        </div>
+      </div>
+      <div class="sec-tags">
+        <span class="sec-tag">Leyes nacionales</span>
+        <span class="sec-tag">Derecho internacional</span>
+        <span class="sec-tag">Fallos</span>
+        <span class="sec-tag">Regulación IA</span>
+      </div>
+      <div class="sec-meta">
+        <div class="sec-count"><strong id="count-norma">—</strong> entradas</div>
+        <div class="sec-cta">Ver normativa →</div>
+      </div>
+    </div>
+
+    <!-- HERRAMIENTAS -->
+    <div class="sec-card" data-sec="herram" onclick="showSection('herram')">
+      <div style="display:flex;gap:16px;align-items:flex-start">
+        <div class="sec-icon" style="--accent:var(--herram)">🛠</div>
+        <div>
+          <div class="sec-label">Sección 03</div>
+          <div class="sec-title">Herramientas y recursos de formación</div>
+          <div class="sec-desc">Instrumentos prácticos, guías, cajas de herramientas, kits pedagógicos y materiales de capacitación para organizaciones, funcionarios y comunidades.</div>
+        </div>
+      </div>
+      <div class="sec-tags">
+        <span class="sec-tag">Evaluación de impacto</span>
+        <span class="sec-tag">Guías prácticas</span>
+        <span class="sec-tag">Formación</span>
+        <span class="sec-tag">Auditoría</span>
+      </div>
+      <div class="sec-meta">
+        <div class="sec-count"><strong id="count-herram">—</strong> entradas</div>
+        <div class="sec-cta">Ver herramientas →</div>
+      </div>
+    </div>
+
+    <!-- INFORMES -->
+    <div class="sec-card" data-sec="inform" onclick="showSection('inform')">
+      <div style="display:flex;gap:16px;align-items:flex-start">
+        <div class="sec-icon" style="--accent:var(--inform)">📑</div>
+        <div>
+          <div class="sec-label">Sección 04</div>
+          <div class="sec-title">Informes y publicaciones</div>
+          <div class="sec-desc">Informes académicos, índices, declaraciones conjuntas, investigaciones y publicaciones especializadas sobre IA, DDHH y trata en entornos digitales.</div>
+        </div>
+      </div>
+      <div class="sec-tags">
+        <span class="sec-tag">Informes anuales</span>
+        <span class="sec-tag">Investigación académica</span>
+        <span class="sec-tag">Índices</span>
+        <span class="sec-tag">Declaraciones</span>
+      </div>
+      <div class="sec-meta">
+        <div class="sec-count"><strong id="count-inform">—</strong> entradas</div>
+        <div class="sec-cta">Ver publicaciones →</div>
+      </div>
+    </div>
+
+  </div><!-- /hub -->
+</div><!-- /view-hub -->
+
+
+<!-- ══════════════════ PÁGINAS INTERNAS ══════════════════ -->
+
+<!-- CASOS -->
+<div id="page-casos" class="inner-page" style="--accent:var(--casos)">
+  <div style="max-width:1100px;margin:0 auto">
+    <div class="breadcrumb">
+      <a href="#" onclick="showHub();return false;">Recursos</a>
+      <span class="sep">/</span>
+      <span class="current">Casos</span>
+    </div>
+  </div>
+  <div class="inner-header" style="max-width:1100px;margin:0 auto">
+    <div class="inner-accent-bar" style="--accent:var(--casos)"></div>
+    <div class="inner-header-text">
+      <div style="font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--casos);margin-bottom:8px">Sección 01</div>
+      <h2 style="font-family:var(--serif);font-size:clamp(26px,4vw,40px);margin-bottom:10px">Casos</h2>
+      <p style="font-size:14px;color:var(--muted);max-width:600px;line-height:1.7">Casos judiciales, violaciones documentadas y situaciones de alerta que muestran el impacto concreto de la IA y las tecnologías digitales sobre derechos humanos. Incluye jurisprudencia de referencia y casos de trata digital.</p>
+    </div>
+  </div>
+  <div class="filters-strip" style="max-width:1100px;margin:0 auto">
+    <input class="filter-input" id="search-casos" placeholder="Buscar casos…" oninput="renderSection('casos')" />
+    <select class="filter-select" id="pais-casos" onchange="renderSection('casos')">
+      <option value="">Todos los países</option>
+    </select>
+    <select class="filter-select" id="tipo-casos" onchange="renderSection('casos')">
+      <option value="">Todos los tipos</option>
+    </select>
+    <span class="result-badge" id="badge-casos"></span>
+  </div>
+  <div class="cards-area"><div class="cards-grid" id="grid-casos"></div></div>
 </div>
 
-<div class="alg-section">
-  <div class="alg-recursos-cats">
-    <span class="alg-cat-pill active">Todos</span>
-    <span class="alg-cat-pill">Glosarios</span>
-    <span class="alg-cat-pill">Kits de auditoría</span>
-    <span class="alg-cat-pill">Marcos normativos</span>
-    <span class="alg-cat-pill">Guías prácticas</span>
-    <span class="alg-cat-pill">Materiales formativos</span>
-  </div>
-
-  <div class="alg-recursos-grid">
-    <div class="alg-recurso-card">
-      <div class="alg-recurso-type" style="color:#005863;">Glosario</div>
-      <h3>Glosario de ética algorítmica en español</h3>
-      <p>Definiciones de términos clave sobre IA, sesgos, transparencia y gobernanza algorítmica, pensado para activistas, periodistas y funcionarios sin formación técnica.</p>
-      <a href="/directorio.html" class="alg-recurso-link">Próximamente →</a>
-    </div>
-    <div class="alg-recurso-card">
-      <div class="alg-recurso-type" style="color:#c85b2a;">Kit de herramientas</div>
-      <h3>Kit de auditoría ética para sistemas de IA</h3>
-      <p>Metodología paso a paso para que organizaciones evalúen el impacto en derechos humanos de los sistemas algorítmicos que usan o desarrollan.</p>
-      <a href="/directorio.html" class="alg-recurso-link">Próximamente →</a>
-    </div>
-    <div class="alg-recurso-card">
-      <div class="alg-recurso-type" style="color:#747929;">Marco normativo</div>
-      <h3>Panorama regulatorio de IA en América Latina</h3>
-      <p>Resumen comparativo de los proyectos de ley, estrategias nacionales y marcos normativos vigentes en la región, actualizado periódicamente.</p>
-      <a href="/directorio.html" class="alg-recurso-link">Ver en el directorio →</a>
-    </div>
-    <div class="alg-recurso-card">
-      <div class="alg-recurso-type" style="color:#005863;">Guía práctica</div>
-      <h3>Cómo detectar sesgos algorítmicos: guía para no especialistas</h3>
-      <p>Herramienta práctica para identificar discriminación algorítmica en sistemas de salud, justicia, crédito y empleo, sin necesitar conocimientos técnicos avanzados.</p>
-      <a href="/acerca.html#contacto" class="alg-recurso-link">Próximamente →</a>
-    </div>
-    <div class="alg-recurso-card">
-      <div class="alg-recurso-type" style="color:#c85b2a;">Material formativo</div>
-      <h3>IA y trata de personas: riesgos y herramientas de prevención</h3>
-      <p>Módulo formativo para operadores judiciales y organizaciones de derechos humanos sobre el uso de tecnología en redes de trata y las respuestas disponibles.</p>
-      <a href="/trata.html" class="alg-recurso-link">Ver eje temático →</a>
-    </div>
-    <div class="alg-recurso-card">
-      <div class="alg-recurso-type" style="color:#747929;">Informe</div>
-      <h3>Casos de jurisprudencia sobre IA en América Latina</h3>
-      <p>Compilación y análisis de fallos judiciales, resoluciones y decisiones administrativas relacionadas con el uso de sistemas algorítmicos en la región.</p>
-      <a href="/directorio.html" class="alg-recurso-link">Ver en el directorio →</a>
+<!-- NORMATIVA -->
+<div id="page-norma" class="inner-page" style="--accent:var(--norma)">
+  <div style="max-width:1100px;margin:0 auto">
+    <div class="breadcrumb">
+      <a href="#" onclick="showHub();return false;">Recursos</a>
+      <span class="sep">/</span>
+      <span class="current">Normativa y jurisprudencia</span>
     </div>
   </div>
-
-  <div class="alg-coming-soon">
-    <p>📬 Esta sección está en construcción. ¿Tenés un recurso que debería estar aquí? <a href="/acerca.html#contacto" style="color:#005863;font-weight:600;">Escribinos</a> y lo sumamos.</p>
+  <div class="inner-header" style="max-width:1100px;margin:0 auto">
+    <div class="inner-accent-bar" style="--accent:var(--norma)"></div>
+    <div class="inner-header-text">
+      <div style="font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--norma);margin-bottom:8px">Sección 02</div>
+      <h2 style="font-family:var(--serif);font-size:clamp(26px,4vw,40px);margin-bottom:10px">Normativa y jurisprudencia</h2>
+      <p style="font-size:14px;color:var(--muted);max-width:620px;line-height:1.7">Leyes, regulaciones, tratados internacionales y fallos judiciales relevantes. Marco normativo de referencia para litigar, legislar y diseñar políticas públicas sobre IA y derechos humanos en América Latina y globalmente.</p>
+    </div>
   </div>
+  <div class="filters-strip" style="max-width:1100px;margin:0 auto">
+    <input class="filter-input" id="search-norma" placeholder="Buscar normativa…" oninput="renderSection('norma')" />
+    <select class="filter-select" id="pais-norma" onchange="renderSection('norma')">
+      <option value="">Todos los países</option>
+    </select>
+    <select class="filter-select" id="tipo-norma" onchange="renderSection('norma')">
+      <option value="">Todos los tipos</option>
+    </select>
+    <span class="result-badge" id="badge-norma"></span>
+  </div>
+  <div class="cards-area"><div class="cards-grid" id="grid-norma"></div></div>
 </div>
 
+<!-- HERRAMIENTAS -->
+<div id="page-herram" class="inner-page" style="--accent:var(--herram)">
+  <div style="max-width:1100px;margin:0 auto">
+    <div class="breadcrumb">
+      <a href="#" onclick="showHub();return false;">Recursos</a>
+      <span class="sep">/</span>
+      <span class="current">Herramientas y recursos de formación</span>
+    </div>
+  </div>
+  <div class="inner-header" style="max-width:1100px;margin:0 auto">
+    <div class="inner-accent-bar" style="--accent:var(--herram)"></div>
+    <div class="inner-header-text">
+      <div style="font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--herram);margin-bottom:8px">Sección 03</div>
+      <h2 style="font-family:var(--serif);font-size:clamp(26px,4vw,40px);margin-bottom:10px">Herramientas y recursos de formación</h2>
+      <p style="font-size:14px;color:var(--muted);max-width:620px;line-height:1.7">Instrumentos prácticos para actuar: evaluaciones de impacto, guías de auditoría, cajas de herramientas institucionales y materiales pedagógicos para organizaciones, operadores judiciales y comunidades.</p>
+    </div>
+  </div>
+  <div class="filters-strip" style="max-width:1100px;margin:0 auto">
+    <input class="filter-input" id="search-herram" placeholder="Buscar herramientas…" oninput="renderSection('herram')" />
+    <select class="filter-select" id="pais-herram" onchange="renderSection('herram')">
+      <option value="">Todos los países</option>
+    </select>
+    <select class="filter-select" id="tipo-herram" onchange="renderSection('herram')">
+      <option value="">Todos los tipos</option>
+    </select>
+    <span class="result-badge" id="badge-herram"></span>
+  </div>
+  <div class="cards-area"><div class="cards-grid" id="grid-herram"></div></div>
+</div>
+
+<!-- INFORMES -->
+<div id="page-inform" class="inner-page" style="--accent:var(--inform)">
+  <div style="max-width:1100px;margin:0 auto">
+    <div class="breadcrumb">
+      <a href="#" onclick="showHub();return false;">Recursos</a>
+      <span class="sep">/</span>
+      <span class="current">Informes y publicaciones</span>
+    </div>
+  </div>
+  <div class="inner-header" style="max-width:1100px;margin:0 auto">
+    <div class="inner-accent-bar" style="--accent:var(--inform)"></div>
+    <div class="inner-header-text">
+      <div style="font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--inform);margin-bottom:8px">Sección 04</div>
+      <h2 style="font-family:var(--serif);font-size:clamp(26px,4vw,40px);margin-bottom:10px">Informes y publicaciones</h2>
+      <p style="font-size:14px;color:var(--muted);max-width:620px;line-height:1.7">Investigaciones académicas, informes de organismos internacionales, índices de gobernanza de IA y declaraciones conjuntas. Base documental para investigar, elaborar políticas e incidir con evidencia.</p>
+    </div>
+  </div>
+  <div class="filters-strip" style="max-width:1100px;margin:0 auto">
+    <input class="filter-input" id="search-inform" placeholder="Buscar informes…" oninput="renderSection('inform')" />
+    <select class="filter-select" id="pais-inform" onchange="renderSection('inform')">
+      <option value="">Todos los países</option>
+    </select>
+    <select class="filter-select" id="tipo-inform" onchange="renderSection('inform')">
+      <option value="">Todos los tipos</option>
+    </select>
+    <span class="result-badge" id="badge-inform"></span>
+  </div>
+  <div class="cards-area"><div class="cards-grid" id="grid-inform"></div></div>
+</div>
+
+
+<script>
+/* ─── DATOS ─────────────────────────────────────────────────── */
+const DATA = {
+  casos: [
+    { nombre:"Caso SyRI – Tribunal de La Haya", pais:"Países Bajos", tipo:"Jurisprudencia", anio:2020, desc:"El Tribunal de Distrito de La Haya determinó que el algoritmo estatal SyRI, usado para predecir fraude fiscal, era incompatible con el derecho a la privacidad. Caso de referencia mundial.", temas:["Privacidad","Algoritmos estatales","Protección social"], url:"https://djhr.revistas.deusto.es/article/download/2910/3510/", signo:"🔴" },
+    { nombre:"Fallo con IA generativa – Corte Constitucional de Colombia", pais:"Colombia", tipo:"Jurisprudencia", anio:2023, desc:"Un juez colombiano usó IA generativa para redactar parte de un fallo. La Corte Constitucional abordó el uso acrítico de herramientas no jurídicas en la justicia.", temas:["Justicia","IA generativa","Transparencia"], url:"https://www.corteconstitucional.gov.co", signo:"⚠️" },
+    { nombre:"Sitio de deepfakes íntimos bloqueado – Argentina", pais:"Argentina", tipo:"Jurisprudencia", anio:2025, desc:"La justicia argentina ordenó bloquear un sitio que usaba IA para generar contenido íntimo sin consentimiento. Primer fallo de este tipo en Argentina.", temas:["Violencia digital","IA generativa","Género","Menores"], url:"https://www.infobae.com/sociedad/2025/05/22/la-justicia-ordeno-bloquear-un-sitio-web-que-utilizaba-inteligencia-artificial-para-generar-contenido-intimo-sin-consentimiento/", signo:"🔴" },
+    { nombre:"COMPAS – Sesgo racial en predicción de reincidencia", pais:"EEUU", tipo:"Caso documentado", anio:2016, desc:"ProPublica documentó que el algoritmo COMPAS predecía el riesgo de reincidencia con sesgo racial sistemático. Caso fundacional en el debate sobre IA y justicia.", temas:["Sesgo algorítmico","Justicia penal","Discriminación racial"], url:"https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing", signo:"🔴" },
+    { nombre:"Vigilancia facial en manifestaciones – Chile 2019", pais:"Chile", tipo:"Alerta documentada", anio:2020, desc:"Uso de reconocimiento facial no regulado durante el estallido social chileno. Derechos Digitales documentó capturas masivas de datos biométricos sin base legal.", temas:["Vigilancia","Biometría","Protesta social","Privacidad"], url:"https://www.derechosdigitales.org", signo:"⚠️" },
+    { nombre:"Plataformas digitales y trata – caso regional LAC", pais:"Regional LAC", tipo:"Caso documentado", anio:2024, desc:"La UNODC documentó cómo redes criminales utilizan redes sociales, apps de citas y criptomonedas para captar y controlar víctimas de trata en América Latina.", temas:["Trata digital","Captación","Redes sociales","Crimen organizado"], url:"https://www.unodc.org/unodc/en/human-trafficking/index.html", signo:"🔴" },
+    { nombre:"Grooming en plataformas de videojuegos – Argentina", pais:"Argentina", tipo:"Alerta documentada", anio:2025, desc:"Caso paradigmático de uso de plataformas de gaming (Discord, Roblox) para captación y grooming de menores documentado por la PROTEX.", temas:["Grooming","Menores","Videojuegos","Captación"], url:"https://www.mpf.gob.ar/protex", signo:"🔴" },
+  ],
+
+  norma: [
+    { nombre:"Reglamento Europeo de IA (EU AI Act)", pais:"Unión Europea", tipo:"Regulación", anio:2024, desc:"Primera regulación integral de IA por riesgo a nivel regional. Clasifica sistemas de IA en cuatro categorías de riesgo y establece prohibiciones para usos de alto impacto en derechos.", temas:["Regulación IA","Alto riesgo","Prohibiciones","Gobernanza"], url:"https://artificialintelligenceact.eu/", signo:"📄" },
+    { nombre:"Recomendación UNESCO sobre la Ética de la IA", pais:"Internacional", tipo:"Marco internacional", anio:2021, desc:"Primer instrumento normativo global sobre ética de la IA aprobado por 193 estados miembros. Establece valores, principios y áreas de acción para los gobiernos.", temas:["Ética","Gobernanza","Inclusión","Dignidad humana"], url:"https://unesdoc.unesco.org/ark:/48223/pf0000381137_spa", signo:"📄" },
+    { nombre:"Ley Micaela – Argentina (Ley 27.499)", pais:"Argentina", tipo:"Ley nacional", anio:2019, desc:"Establece capacitación obligatoria en género y violencia contra la mujer para todos los poderes del Estado. Marco para interseccionar con detección de violencia digital.", temas:["Género","Violencia","Capacitación obligatoria"], url:"https://www.argentina.gob.ar/normativa/nacional/ley-27499-318666", signo:"✅" },
+    { nombre:"Ley 26.364 – Trata de Personas (Argentina)", pais:"Argentina", tipo:"Ley nacional", anio:2008, desc:"Ley de Prevención y Sanción de la Trata de Personas y Asistencia a sus Víctimas. Marco legal base para la persecución del delito de trata en Argentina.", temas:["Trata de personas","Víctimas","Marco penal"], url:"https://www.argentina.gob.ar/normativa/nacional/ley-26364-140100", signo:"📄" },
+    { nombre:"Resolución ONU A/HRC/44/24 – IA y privacidad", pais:"Internacional", tipo:"Resolución ONU", anio:2020, desc:"Resolución del Consejo de DDHH sobre el derecho a la privacidad en la era digital, con énfasis en sistemas de IA. Establece marco de accountability para Estados y empresas.", temas:["Privacidad","Accountability","Estándares ONU"], url:"https://www.ohchr.org/en/privacy-in-the-digital-age", signo:"📄" },
+    { nombre:"Declaración conjunta FOC sobre IA y DDHH 2025", pais:"Internacional", tipo:"Declaración conjunta", anio:2025, desc:"La Freedom Online Coalition (incluye Argentina, Chile, Colombia, México) establece estándares de DDHH para sistemas de IA, con énfasis en grupos vulnerables.", temas:["Estándares","Grupos vulnerables","Género","Gobernanza"], url:"https://freedomonlinecoalition.com/joint-statement-on-ai-and-human-rights-2025/", signo:"✅" },
+    { nombre:"Marco normativo sobre trata digital – análisis LAC", pais:"Regional LAC", tipo:"Marco comparado", anio:2024, desc:"Análisis comparativo de marcos legales sobre trata en entornos digitales en 18 países de América Latina. Identifica vacíos normativos y mejores prácticas.", temas:["Trata digital","Derecho comparado","Vacíos legales"], url:"https://www.unodc.org", signo:"📄" },
+  ],
+
+  herram: [
+    { nombre:"Evaluación de Impacto en DDHH para IA – Ontario HRC", pais:"Canadá", tipo:"Herramienta de evaluación", anio:2023, desc:"Instrumento práctico para que desarrolladores y administraciones identifiquen, evalúen y mitiguen discriminación a lo largo del ciclo de vida de sistemas de IA.", temas:["Evaluación de impacto","Discriminación","Ciclo de vida IA"], url:"https://www3.ohrc.on.ca/en/human-rights-ai-impact-assessment", signo:"✅" },
+    { nombre:"Caja de Herramientas UNESCO sobre IA y Estado de Derecho", pais:"Internacional", tipo:"Caja de herramientas", anio:2023, desc:"Orientación práctica sobre leyes, principios y jurisprudencia internacional de DDHH para el uso ético de la IA. Usada en capacitaciones a jueces latinoamericanos.", temas:["Estado de derecho","Capacitación judicial","Ética"], url:"https://www.unesco.org/es/artificial-intelligence/rule-of-law", signo:"✅" },
+    { nombre:"Risk Management Profile for AI and Human Rights – Depto. Estado EEUU", pais:"EEUU / Internacional", tipo:"Guía de gestión de riesgos", anio:2024, desc:"Guía del gobierno de EEUU para gestión de riesgos de IA con perspectiva de derechos humanos. Aborda privacidad, no discriminación, libertad de expresión y reunión.", temas:["Gestión de riesgos","Privacidad","No discriminación","Empresas"], url:"https://2021-2025.state.gov/risk-management-profile-for-ai-and-human-rights/", signo:"✅" },
+    { nombre:"Algorithmic Accountability Act – Herramienta de auditoría", pais:"EEUU", tipo:"Marco de auditoría", anio:2023, desc:"Propuesta legislativa que establece requisitos de evaluación de impacto automatizados para sistemas de toma de decisiones de alto riesgo. Usada como referencia metodológica.", temas:["Auditoría","Accountability","Transparencia"], url:"https://www.congress.gov", signo:"📄" },
+    { nombre:"Kit pedagógico: Prevención de grooming digital – UNICEF Argentina", pais:"Argentina", tipo:"Recurso formativo", anio:2024, desc:"Materiales didácticos gratuitos para docentes y padres sobre prevención de grooming, captación digital y seguridad en línea para niñas, niños y adolescentes.", temas:["Grooming","Prevención","NNA","Educación digital"], url:"https://www.unicef.org/argentina", signo:"✅" },
+    { nombre:"Protocolo de detección de captación digital – PROTEX", pais:"Argentina", tipo:"Protocolo institucional", anio:2024, desc:"Guía operativa de la Unidad Fiscal PROTEX para identificar señales de captación de víctimas de trata a través de plataformas digitales. Incluye checklist de indicadores.", temas:["Trata digital","Detección","Protocolo","Fiscalías"], url:"https://www.mpf.gob.ar/protex", signo:"✅" },
+    { nombre:"Checklist de evaluación de sistemas algorítmicos – AlgorÉtica", pais:"Argentina / Regional", tipo:"Herramienta propia", anio:2025, desc:"Checklist de carga y verificación para el Directorio IA y DDHH. Incluye verificación de relaciones, signos éticos, utilidad por perfil y nivel geográfico.", temas:["Auditoría","Directorio","Metodología","Ética"], url:"#", signo:"✅" },
+  ],
+
+  inform: [
+    { nombre:"Informe Mundial sobre Trata de Personas 2024 – UNODC", pais:"Internacional", tipo:"Informe anual", anio:2024, desc:"La UNODC documenta tendencias globales de trata en 156 países, con capítulo dedicado al uso de plataformas digitales por redes criminales y el papel de la IA.", temas:["Trata de personas","Estadísticas globales","Plataformas digitales"], url:"https://www.unodc.org/unodc/en/human-trafficking/publications.html", signo:"📄" },
+    { nombre:"Regulación de IA en el proceso judicial en LAC", pais:"Regional ALC", tipo:"Artículo académico", anio:2025, desc:"Análisis comparativo de Argentina, Brasil, Chile, Colombia y México sobre uso de IA en sistemas judiciales. Identifica sesgos algorítmicos y vacíos en marcos legales actuales.", temas:["Justicia","Sesgo algorítmico","Transparencia","Derecho comparado"], url:"https://erevistas.uacj.mx/ojs/index.php/reij/article/view/6744", signo:"📄" },
+    { nombre:"Sesgos y discriminación algorítmica en IA – Revisión documental", pais:"Internacional", tipo:"Artículo académico", anio:2023, desc:"Revisión exhaustiva sobre sesgos, discriminaciones y desigualdades en la implementación de IA. Analiza casos internacionales desde perspectiva de ciencias sociales.", temas:["Sesgo algorítmico","Discriminación","Desigualdad"], url:"https://revistasacademicas.iberoleon.mx/index.php/entretextos/article/view/664", signo:"📄" },
+    { nombre:"Índice de preparación para la IA del gobierno – EEAS 2024", pais:"Regional LAC", tipo:"Índice", anio:2024, desc:"Benchmark de capacidades de los gobiernos latinoamericanos para adoptar IA de manera responsable. Chile, Brasil y Uruguay lideran; Argentina, Colombia y México son adoptantes intermedios.", temas:["Gobernanza","Capacidades","Benchmark regional"], url:"https://www.eeas.europa.eu/node/445338_en", signo:"📄" },
+    { nombre:"Trata en entornos digitales: análisis de plataformas LAC", pais:"Regional LAC", tipo:"Informe investigativo", anio:2025, desc:"Análisis de las principales plataformas y mecanismos digitales utilizados para la captación, control y explotación de víctimas de trata en América Latina.", temas:["Trata digital","Plataformas","Captación","LAC"], url:"#", signo:"🔴" },
+    { nombre:"Nota multienfoque sobre trata y tecnología", pais:"Argentina / Regional", tipo:"Nota especializada", anio:2025, desc:"Análisis integral de la intersección entre trata de personas, tecnología digital e inteligencia artificial. Perspectivas jurídicas, sociales y tecnológicas.", temas:["Trata","IA","Tecnología","Multienfoque"], url:"#", signo:"📄" },
+    { nombre:"Análisis redes sociales como herramienta de captación", pais:"Regional LAC", tipo:"Informe investigativo", anio:2025, desc:"Documentación de patrones, perfiles y estrategias de captación de víctimas de trata a través de redes sociales. Incluye casos y señales de alerta para operadores.", temas:["Redes sociales","Captación","Señales de alerta","Trata digital"], url:"#", signo:"🔴" },
+  ]
+};
+
+/* ─── NAVEGACIÓN ─────────────────────────────────────────── */
+const hubEl = document.getElementById('view-hub');
+const pages = ['casos','norma','herram','inform'];
+
+function showHub() {
+  hubEl.style.display = 'block';
+  pages.forEach(s => document.getElementById('page-'+s).classList.remove('active'));
+  window.scrollTo(0,0);
+}
+
+function showSection(sec) {
+  hubEl.style.display = 'none';
+  pages.forEach(s => document.getElementById('page-'+s).classList.remove('active'));
+  document.getElementById('page-'+sec).classList.add('active');
+  populateFilters(sec);
+  renderSection(sec);
+  window.scrollTo(0,0);
+}
+
+/* ─── FILTROS ─────────────────────────────────────────────── */
+function populateFilters(sec) {
+  const items = DATA[sec];
+  const países = [...new Set(items.map(i=>i.pais))].sort();
+  const tipos  = [...new Set(items.map(i=>i.tipo))].sort();
+
+  const selPais = document.getElementById('pais-'+sec);
+  const selTipo = document.getElementById('tipo-'+sec);
+  selPais.innerHTML = '<option value="">Todos los países</option>' + países.map(p=>`<option>${p}</option>`).join('');
+  selTipo.innerHTML = '<option value="">Todos los tipos</option>' + tipos.map(t=>`<option>${t}</option>`).join('');
+}
+
+/* ─── RENDER ──────────────────────────────────────────────── */
+const ACCENT = { casos:'#e85d3a', norma:'#4a90d9', herram:'#3abf8f', inform:'#c4a94e' };
+
+function renderSection(sec) {
+  const q     = (document.getElementById('search-'+sec)?.value||'').toLowerCase();
+  const pais  = document.getElementById('pais-'+sec)?.value||'';
+  const tipo  = document.getElementById('tipo-'+sec)?.value||'';
+  const acc   = ACCENT[sec];
+
+  let items = DATA[sec].filter(i => {
+    const matchQ = !q || i.nombre.toLowerCase().includes(q) || i.desc.toLowerCase().includes(q) || i.temas.some(t=>t.toLowerCase().includes(q));
+    const matchP = !pais || i.pais === pais;
+    const matchT = !tipo || i.tipo === tipo;
+    return matchQ && matchP && matchT;
+  });
+
+  document.getElementById('badge-'+sec).textContent = items.length + ' resultado' + (items.length!==1?'s':'');
+
+  const grid = document.getElementById('grid-'+sec);
+
+  if (!items.length) {
+    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">No se encontraron resultados con esos filtros.</div>`;
+    return;
+  }
+
+  // Group by tipo
+  const groups = {};
+  items.forEach(i => {
+    if(!groups[i.tipo]) groups[i.tipo]=[];
+    groups[i.tipo].push(i);
+  });
+
+  let html = '';
+  Object.entries(groups).forEach(([tipo, list]) => {
+    html += `<div class="subcat-divider"><span>${tipo}</span><div class="subcat-line"></div></div>`;
+    list.forEach(i => {
+      html += `
+      <div class="entry-card" style="--accent:${acc}">
+        <div class="entry-top">
+          <span class="entry-badge" style="--accent:${acc}">${i.signo} ${i.tipo}</span>
+          <span class="entry-flag">📍 ${i.pais} · ${i.anio}</span>
+        </div>
+        <div class="entry-name">${i.nombre}</div>
+        <div class="entry-desc">${i.desc}</div>
+        <div class="entry-tags">${i.temas.map(t=>`<span class="entry-tag">${t}</span>`).join('')}</div>
+        ${i.url && i.url!='#' ? `<a class="entry-link" href="${i.url}" target="_blank" rel="noopener">Ver recurso →</a>` : ''}
+      </div>`;
+    });
+  });
+
+  grid.innerHTML = html;
+}
+
+/* ─── INIT ─────────────────────────────────────────────────── */
+function init() {
+  // Counts on hub
+  document.getElementById('count-casos').textContent  = DATA.casos.length;
+  document.getElementById('count-norma').textContent  = DATA.norma.length;
+  document.getElementById('count-herram').textContent = DATA.herram.length;
+  document.getElementById('count-inform').textContent = DATA.inform.length;
+}
+init();
+</script>
+<div style="height:60px;"></div>
 </body>
 </html>
